@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.SignUpPage">
+
+    <StackLayout x:Name="containerStackLayout" VerticalOptions="Center">
+        
+        <Label x:Name="errorMessage" TextColor="Red"/>
+        
+        <Entry x:Name="firstName"
+               Text="{Binding FirstName, Mode=TwoWay}"
+               Placeholder="First Name"/>
+
+        <Entry x:Name="lastName"
+               Text="{Binding LastName, Mode=TwoWay}"
+               Placeholder="Last Name"/>
+
+        <Entry x:Name="email"
+               Text="{Binding Email, Mode=TwoWay}"
+               Placeholder="Email"
+               Keyboard="Email"/>
+
+        <Entry x:Name="password"
+               Text="{Binding Password, Mode=TwoWay}"
+               Placeholder="Password"
+               IsPassword="true"/>
+
+        <Entry x:Name="confirmationPassword"
+               Placeholder="Comfrim Password"
+               IsPassword="true"/>
+        
+        <Button x:Name="signUpButton"
+                Text="Sign Up"
+                Clicked="signUpButton_Clicked"/>
+
+    </StackLayout>
+    
+
+    
+</ContentPage>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.ProfilePage">
+
+    <StackLayout x:Name="containerStackLayout">
+        
+        <StackLayout x:Name="displayContainer">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="First Name: "/>
+                <Label Text=""/>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Last Name: "/>
+                <Label Text=""/>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Email: "/>
+                <Label Text=""/>
+            </StackLayout>
+            
+            <Button x:Name="editButton"
+                    Text="Edit"
+                    Clicked="editButton_Clicked"/>
+            
+        </StackLayout>
+        
+        <StackLayout x:Name="editContainer" IsVisible="false">
+            <Entry Placeholder="First Name" />
+            <Entry Placeholder="Last Name" />
+            <Entry Placeholder="Email" />
+            <Entry Placeholder="Password" />
+            <Entry Placeholder="Confirm Password" />
+            
+            <StackLayout x:Name="editButtons">
+                <Button x:Name="cancelButton" Text="Cancel" Clicked="cancelButton_Clicked"/>    
+                <Button x:Name="submitButton" Text="Submit"/>
+            </StackLayout>
+        </StackLayout>
+        
+        
+        
+    </StackLayout>
+    
+</ContentPage>

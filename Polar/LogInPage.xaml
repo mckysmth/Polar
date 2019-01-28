@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.LogInPage">
+    
+    <StackLayout x:Name="containerStackLayout" VerticalOptions="Center">
+        
+        <Label x:Name="errorMessage" 
+               TextColor="Red"/>
+        
+        <Entry x:Name="Email"
+               Keyboard="Email"
+               Text="test@test.com"
+               Placeholder="Email"/>
+        
+        <Entry x:Name="Password"
+               Placeholder="Password"
+               Text="12345678"
+               IsPassword="true"/>
+        
+        <Button x:Name="logInButton"
+                Text="Log In"
+                Clicked="logInButton_Clicked"/>
+        
+        <Button x:Name="signUpButton"
+                Text="Sign Up"
+                Clicked="signUpButton_Clicked"/>
+        
+    </StackLayout>
+
+</ContentPage>
