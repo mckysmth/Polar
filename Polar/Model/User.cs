@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -8,7 +9,7 @@ using MongoDB.Driver;
 
 namespace Polar.Model
 {
-    [BsonIgnoreExtraElements]
+
     public class User : INotifyPropertyChanged
     {
 
@@ -63,12 +64,14 @@ namespace Polar.Model
         }
 
 
-        //TODO: Ignore this property when deserialize
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string proertyName)
+        private void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(proertyName));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         public static async Task<bool> Register(User user)

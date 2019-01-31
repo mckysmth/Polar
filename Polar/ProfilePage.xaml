@@ -6,17 +6,17 @@
         <StackLayout x:Name="displayContainer">
             <StackLayout Orientation="Horizontal">
                 <Label Text="First Name: "/>
-                <Label Text=""/>
+                <Label Text="{Binding FirstName}"/>
             </StackLayout>
             
             <StackLayout Orientation="Horizontal">
                 <Label Text="Last Name: "/>
-                <Label Text=""/>
+                <Label Text="{Binding LastName}"/>
             </StackLayout>
             
             <StackLayout Orientation="Horizontal">
                 <Label Text="Email: "/>
-                <Label Text=""/>
+                <Label Text="{Binding Email}"/>
             </StackLayout>
             
             <Button x:Name="editButton"
@@ -26,9 +26,12 @@
         </StackLayout>
         
         <StackLayout x:Name="editContainer" IsVisible="false">
-            <Entry Placeholder="First Name" />
-            <Entry Placeholder="Last Name" />
-            <Entry Placeholder="Email" />
+            <Entry Placeholder="First Name" 
+                   Text="{Binding FirstName}"/>
+            <Entry Placeholder="Last Name" 
+                   Text="{Binding LastName}"/>
+            <Entry Placeholder="Email" 
+                   Text="{Binding Email}"/>
             <Entry Placeholder="Password" />
             <Entry Placeholder="Confirm Password" />
             

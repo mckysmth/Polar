@@ -1,35 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using Polar.Model;
+using Polar.ViewModel;
 using Xamarin.Forms;
 
 namespace Polar
 {
     public partial class LogInPage : ContentPage
     {
+        LogInVM viewModel;
+
         public LogInPage()
         {
             InitializeComponent();
+
+            viewModel = new LogInVM();
+
+            BindingContext = viewModel;
         }
 
-        public async void logInButton_Clicked(object sender, System.EventArgs e)
-        {
-            bool canLogIn = await User.Login(Email.Text, Password.Text);
 
-            if (canLogIn)
-            {
-                Navigation.PushAsync(new ProfilePage());
-            }
-            else
-            {
-                errorMessage.Text = "Incorrect Username/Password";
-            }
-
-        }
-
-        void signUpButton_Clicked(object sender, System.EventArgs e)
-        {
-            Navigation.PushAsync(new SignUpPage());
-        }
     }
 }

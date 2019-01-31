@@ -4,25 +4,27 @@
     <StackLayout x:Name="containerStackLayout" VerticalOptions="Center">
         
         <Label x:Name="errorMessage" 
-               TextColor="Red"/>
+               TextColor="Red"
+               Text="{Binding ErrorMessage}"/>
         
         <Entry x:Name="Email"
                Keyboard="Email"
-               Text="test@test.com"
+               Text="{Binding Email, Mode=TwoWay}"
                Placeholder="Email"/>
         
         <Entry x:Name="Password"
                Placeholder="Password"
-               Text="12345678"
+               Text="{Binding Password, Mode=TwoWay}"
                IsPassword="true"/>
         
         <Button x:Name="logInButton"
                 Text="Log In"
-                Clicked="logInButton_Clicked"/>
+                Command="{Binding LogInCommand}"
+                CommandParameter="{Binding User}"/>
         
         <Button x:Name="signUpButton"
                 Text="Sign Up"
-                Clicked="signUpButton_Clicked"/>
+                Command="{Binding NavCommand}"/>
         
     </StackLayout>
 
