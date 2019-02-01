@@ -3,7 +3,9 @@
 
     <StackLayout x:Name="containerStackLayout" VerticalOptions="Center">
         
-        <Label x:Name="errorMessage" TextColor="Red"/>
+        <Label x:Name="errorMessage" 
+               TextColor="Red"
+               Text="{Binding ErrorMessage}"/>
         
         <Entry x:Name="firstName"
                Text="{Binding FirstName, Mode=TwoWay}"
@@ -24,12 +26,14 @@
                IsPassword="true"/>
 
         <Entry x:Name="confirmationPassword"
+               Text="{Binding ConfirmationPassword, Mode=TwoWay}"
                Placeholder="Comfrim Password"
                IsPassword="true"/>
         
         <Button x:Name="signUpButton"
                 Text="Sign Up"
-                Clicked="signUpButton_Clicked"/>
+                Command="{Binding SignUpCommand}"
+                CommandParameter="{Binding User}"/>
 
     </StackLayout>
     

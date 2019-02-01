@@ -8,6 +8,9 @@ namespace Polar.ViewModel
 {
     public class LogInVM : INotifyPropertyChanged
     {
+        public LogInToSignUpNavCommand LogInToSignUpNavCommand { get; set; }
+        public LogInCommand LogInCommand { get; set; }
+
         private User user;
 
         public User User 
@@ -19,8 +22,6 @@ namespace Polar.ViewModel
                 OnPropertyChanged("User");
             }
         }
-        public NavigationCommand NavCommand { get; set; }
-        public LogInCommand LogInCommand { get; set; }
 
         private string email;
 
@@ -73,6 +74,13 @@ namespace Polar.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public LogInVM()
+        {
+            User = new User();
+            LogInToSignUpNavCommand = new LogInToSignUpNavCommand(this);
+            LogInCommand = new LogInCommand(this);
+        }
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -82,14 +90,7 @@ namespace Polar.ViewModel
             }
         }
 
-        public LogInVM()
-        {
-            User = new User();
-            NavCommand = new NavigationCommand(this);
-            LogInCommand = new LogInCommand(this);
-        }
-
-        public async void Navigate()
+        public async void NavigateToSignUp()
         {
             await App.Current.MainPage.Navigation.PushAsync(new SignUpPage());
         }

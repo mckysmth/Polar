@@ -1,40 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using Polar.Model;
+using Polar.ViewModel;
 using Xamarin.Forms;
 
 namespace Polar
 {
     public partial class SignUpPage : ContentPage
     {
-        User user;
+        SignUpVM signUpVM;
 
         public SignUpPage()
         {
             InitializeComponent();
 
-            user = new User();
-            containerStackLayout.BindingContext = user;
-
+            BindingContext = signUpVM;
         }
 
-        public async void signUpButton_Clicked(object sender, System.EventArgs e)
-        {
-            if (password.Text == confirmationPassword.Text)
-            {
-                if (await User.Register(user))
-                {
-                    await Navigation.PushAsync(new ProfilePage());
-                }
-                else
-                {
-                    errorMessage.Text = "Account already exists";
-                }
-            }
-            else
-            {
-                errorMessage.Text = "Not matching passwords";
-            }
-        }
+
     }
 }

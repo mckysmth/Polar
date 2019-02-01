@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace Polar.ViewModel.Commands
 {
-    public class NavigationCommand : ICommand
+    public class LogInToSignUpNavCommand : ICommand
     {
 
 
@@ -12,7 +12,7 @@ namespace Polar.ViewModel.Commands
 
         public event EventHandler CanExecuteChanged;
 
-        public NavigationCommand(LogInVM logInVM)
+        public LogInToSignUpNavCommand(LogInVM logInVM)
         {
             LogInViewModel = logInVM;
         }
@@ -24,7 +24,7 @@ namespace Polar.ViewModel.Commands
 
         public void Execute(object parameter)
         {
-            LogInViewModel.Navigate();
+            LogInViewModel.NavigateToSignUp();
 
         }
     }

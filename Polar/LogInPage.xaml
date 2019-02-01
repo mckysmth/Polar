@@ -24,7 +24,7 @@
         
         <Button x:Name="signUpButton"
                 Text="Sign Up"
-                Command="{Binding NavCommand}"/>
+                Command="{Binding LogInToSignUpNavCommand}"/>
         
     </StackLayout>
 
