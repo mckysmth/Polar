@@ -155,7 +155,7 @@ namespace Polar.ViewModel
             {
                 if (await User.Register(user))
                 {
-                    await App.Current.MainPage.Navigation.PushAsync(new ProfilePage());
+                    //await App.Current.MainPage.Navigation.PushAsync();
                 }
                 else
                 {

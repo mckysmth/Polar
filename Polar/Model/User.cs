@@ -53,6 +53,11 @@ namespace Polar.Model
 
         private string password;
 
+        public User()
+        {
+            Id = ObjectId.GenerateNewId();
+        }
+
         public string Password
         {
             get { return password; }

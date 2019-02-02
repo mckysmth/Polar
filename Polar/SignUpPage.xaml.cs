@@ -14,6 +14,8 @@ namespace Polar
         {
             InitializeComponent();
 
+            signUpVM = new SignUpVM();
+
             BindingContext = signUpVM;
         }
 
