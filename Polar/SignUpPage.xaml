@@ -19,7 +19,7 @@
                Text="{Binding Email, Mode=TwoWay}"
                Placeholder="Email"
                Keyboard="Email"/>
-
+        
         <Entry x:Name="password"
                Text="{Binding Password, Mode=TwoWay}"
                Placeholder="Password"

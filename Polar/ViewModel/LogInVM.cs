@@ -102,6 +102,7 @@ namespace Polar.ViewModel
             if (canLogIn)
             {
                 //await App.Current.MainPage.Navigation.PushAsync();
+                user = Client.GetUser();
             }
             else
             {

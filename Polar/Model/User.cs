@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -53,11 +55,6 @@ namespace Polar.Model
 
         private string password;
 
-        public User()
-        {
-            Id = ObjectId.GenerateNewId();
-        }
-
         public string Password
         {
             get { return password; }
@@ -68,8 +65,16 @@ namespace Polar.Model
             }
         }
 
+        public ObservableCollection<ObjectId> projectIDs;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+        public User()
+        {
+            Id = ObjectId.GenerateNewId();
+            projectIDs = new ObservableCollection<ObjectId>();
+        }
 
         private void OnPropertyChanged(string propertyName)
         {

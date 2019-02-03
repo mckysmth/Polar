@@ -29,13 +29,7 @@ namespace Polar.ViewModel
             set
             {
                 firstName = value;
-                User = new User()
-                {
-                    FirstName = this.firstName,
-                    LastName = this.lastName,
-                    Email = this.Email,
-                    Password = this.Password
-                };
+                UpdateUser();
                 OnPropertyChanged("FirstName");
             }
         }
@@ -48,13 +42,7 @@ namespace Polar.ViewModel
             set
             {
                 lastName = value;
-                User = new User()
-                {
-                    FirstName = this.firstName,
-                    LastName = this.lastName,
-                    Email = this.Email,
-                    Password = this.Password
-                };
+                UpdateUser();
                 OnPropertyChanged("LastName");
             }
         }
@@ -67,14 +55,7 @@ namespace Polar.ViewModel
             set
             {
                 email = value;
-                User = new User()
-                {
-                    FirstName = this.firstName,
-                    LastName = this.lastName,
-                    Email = this.Email,
-                    Password = this.Password
-                };
-
+                UpdateUser();
                 OnPropertyChanged("Email");
             }
         }
@@ -87,13 +68,7 @@ namespace Polar.ViewModel
             set
             {
                 password = value;
-                User = new User()
-                {
-                    FirstName = this.firstName,
-                    LastName = this.lastName,
-                    Email = this.Email,
-                    Password = this.Password
-                };
+                UpdateUser();
                 OnPropertyChanged("Password");
             }
         }
@@ -106,14 +81,21 @@ namespace Polar.ViewModel
             set
             {
                 confirmationPassword = value;
-                User = new User()
-                {
-                    FirstName = this.firstName,
-                    LastName = this.lastName,
-                    Email = this.Email,
-                    Password = this.Password
-                };
+                UpdateUser();
                 OnPropertyChanged("ConfirmationPassword");
+            }
+        }
+
+        private string phoneNumber;
+
+        public string PhoneNumber
+        {
+            get { return phoneNumber; }
+            set
+            {
+                phoneNumber = value;
+                UpdateUser();
+                OnPropertyChanged("PhoneNumber");
             }
         }
 
@@ -156,6 +138,7 @@ namespace Polar.ViewModel
                 if (await User.Register(user))
                 {
                     //await App.Current.MainPage.Navigation.PushAsync();
+                    ErrorMessage = "Account created";
                 }
                 else
                 {
@@ -166,6 +149,17 @@ namespace Polar.ViewModel
             {
                 ErrorMessage = "Not matching passwords";
             }
+        }
+
+        private void UpdateUser()
+        {
+            User = new User()
+            {
+                FirstName = this.firstName,
+                LastName = this.lastName,
+                Email = this.Email,
+                Password = this.Password
+            };
         }
     }
 }
