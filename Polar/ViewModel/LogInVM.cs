@@ -101,8 +101,8 @@ namespace Polar.ViewModel
 
             if (canLogIn)
             {
-                //await App.Current.MainPage.Navigation.PushAsync();
-                user = Client.GetUser();
+                await App.Current.MainPage.Navigation.PushAsync(new NewProjectPage());
+                //user = Client.GetUser();
             }
             else
             {

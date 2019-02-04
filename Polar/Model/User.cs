@@ -16,6 +16,7 @@ namespace Polar.Model
     {
 
         public ObjectId Id { get; set; }
+        public ObservableCollection<ObjectId> ProjectIDs { get; set; }
 
         private string firstName;
 
@@ -65,7 +66,7 @@ namespace Polar.Model
             }
         }
 
-        public ObservableCollection<ObjectId> projectIDs;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -73,7 +74,7 @@ namespace Polar.Model
         public User()
         {
             Id = ObjectId.GenerateNewId();
-            projectIDs = new ObservableCollection<ObjectId>();
+            this.ProjectIDs = new ObservableCollection<ObjectId>();
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -121,7 +122,7 @@ namespace Polar.Model
                 var document = await Client.GetUserCollection().Find(filter).FirstAsync();
 
                 User user = BsonSerializer.Deserialize<User>(document);
-
+                
                 if (user.email == email && user.password == password)
                 {
                     returnValue = true;
@@ -133,5 +134,19 @@ namespace Polar.Model
             return returnValue;
         }
 
+        public void AddProject(Project project) 
+        {
+            ProjectIDs.Add(project.Id);
+        }
+
+        public static async Task<bool> UpdateProjectIDs(User user)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", user.Id);
+            var update = Builders<BsonDocument>.Update.Set("ProjectIDs", user.ProjectIDs);
+
+            await Client.GetUserCollection().UpdateOneAsync(filter, update);
+
+            return true;
+        }
     }
 }

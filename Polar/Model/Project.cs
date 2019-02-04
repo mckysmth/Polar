@@ -1,4 +1,6 @@
 ﻿using System;
+using Polar.Model;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using MongoDB.Bson;
 
@@ -7,16 +9,17 @@ namespace Polar.Model
     public class Project : INotifyPropertyChanged
     {
         public ObjectId Id { get; set; }
+        public ObservableCollection<Piece> Pieces { get; private set; }
 
-        private string firstName;
+        private string projectName;
 
-        public string FirstName
+        public string ProjectName
         {
-            get { return firstName; }
+            get { return projectName; }
             set
             {
-                firstName = value;
-                OnPropertyChanged("FirstName");
+                projectName = value;
+                OnPropertyChanged("ProjectName");
             }
         }
 
@@ -25,6 +28,10 @@ namespace Polar.Model
         public Project()
         {
             Id = ObjectId.GenerateNewId();
+
+            this.Pieces = new ObservableCollection<Piece>();
+
+            Pieces.Add(new Piece());
         }
 
         private void OnPropertyChanged(string propertyName)

@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.NewProjectPage">
     <StackLayout>
+        <StackLayout>
+            <Button x:Name="addCompButton"
+                    Text="+ Comp"
+                    Clicked="addCompButton_Clicked"/>
+            
+            <Button x:Name="signUpButton"
+                    Text="+ Task"/>
+            
+        </StackLayout>
         
+      <Entry Placeholder="Project Name"
+               Text="{Binding Project.ProjectName, Mode=TwoWay}"/>
+        
+         <Entry Placeholder="Component"
+               Text="{Binding Project.Pieces[0].PieceName , Mode=TwoWay}"/>
+        
+        <Button Text="Sign Up"
+                Command="{Binding CreateNewProjectCommand}"/>
+               
     </StackLayout>
 </ContentPage>

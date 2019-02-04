@@ -137,8 +137,8 @@ namespace Polar.ViewModel
             {
                 if (await User.Register(user))
                 {
-                    //await App.Current.MainPage.Navigation.PushAsync();
-                    ErrorMessage = "Account created";
+                    await App.Current.MainPage.Navigation.PushAsync(new NewProjectPage());
+                    //ErrorMessage = "Account created";
                 }
                 else
                 {

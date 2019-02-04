@@ -31,6 +31,7 @@ namespace Polar.Model
         public static User GetUser()
         {
             var filter = Builders<BsonDocument>.Filter.Eq("_id", userID);
+           
             return BsonSerializer.Deserialize<User>(GetUserCollection().Find(filter).First());
         }
     }
