@@ -22,6 +22,18 @@ namespace Polar.Model
             }
         }
 
+        private bool isOnDoList;
+
+        public bool IsOnDoList
+        {
+            get { return isOnDoList; }
+            set
+            {
+                isOnDoList = value;
+                OnPropertyChanged("IsOnDoList");
+            }
+        }
+
         public Piece()
         {
             Tasks = new ObservableCollection<Task>();

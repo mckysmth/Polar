@@ -77,6 +77,27 @@ namespace Polar.Model
             this.ProjectIDs = new ObservableCollection<ObjectId>();
         }
 
+        public ObservableCollection<(string projectName, Piece piece)> BuildPieceList()
+        {
+            ObservableCollection<(string projectName, Piece piece)> piecesTuple = new ObservableCollection<(string projectName, Piece piece)>();
+            var collection = Client.GetProjectsCollection();
+
+            foreach (ObjectId objID in this.ProjectIDs)
+            {
+                var filter = Builders<BsonDocument>.Filter.Eq("_id", objID);
+                var document = collection.Find(filter).First();
+
+                Project project = BsonSerializer.Deserialize<Project>(document);
+
+                foreach (Piece piece in project.Pieces)
+                {
+                    piecesTuple.Add((project.ProjectName,piece));
+                }
+            }
+
+            return piecesTuple;
+        }
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -102,6 +123,7 @@ namespace Polar.Model
                 Client.userID = user.Id;
 
                 await Client.GetUserCollection().InsertOneAsync(bsonsUserDoc);
+
             }
 
 
@@ -148,5 +170,7 @@ namespace Polar.Model
 
             return true;
         }
+
+
     }
 }
