@@ -3,13 +3,14 @@ using Polar.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using MongoDB.Bson;
+using System.Threading.Tasks;
 
 namespace Polar.Model
 {
     public class Project : INotifyPropertyChanged
     {
         public ObjectId Id { get; set; }
-        public ObservableCollection<Piece> Pieces { get; private set; }
+        public ObservableCollection<Piece> Pieces { get; set; }
 
         private string projectName;
 
@@ -40,6 +41,18 @@ namespace Polar.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public void AddPiece() 
+        {
+            Pieces.Add(new Piece());
+        }
+
+        public static async Task<bool> RegisterProject(Project project)
+        {
+            await Client.GetProjectsCollection().InsertOneAsync(project.ToBsonDocument());
+
+            return true;
         }
     }
 }

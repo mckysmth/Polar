@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace Polar.Model
 {
     public class Piece : INotifyPropertyChanged
     {
-        private string pieceName;
-
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<Task> Tasks { get; private set; }
+
+        private string pieceName;
 
         public string PieceName
         {
@@ -21,6 +24,7 @@ namespace Polar.Model
 
         public Piece()
         {
+            Tasks = new ObservableCollection<Task>();
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -30,5 +34,12 @@ namespace Polar.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public void AddTask()
+        {
+            Tasks.Add(new Task());
+        }
+
+
     }
 }

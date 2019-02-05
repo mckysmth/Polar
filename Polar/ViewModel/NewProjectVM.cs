@@ -56,6 +56,8 @@ namespace Polar.ViewModel
         public async void CreateNewProject()
         {
             await User.UpdateProjectIDs(User);
+            await Project.RegisterProject(Project);
+
         }
 
 
