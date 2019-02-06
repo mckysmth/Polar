@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using Polar.Model;
 
 namespace Polar.ViewModel
@@ -8,9 +10,9 @@ namespace Polar.ViewModel
     public class DoListVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<(string projectName, Piece piece)> PieceTupleList { get; private set; }
 
         private User user;
+
 
         public User User
         {
@@ -25,7 +27,7 @@ namespace Polar.ViewModel
         public DoListVM()
         {
             user = Client.GetUser();
-            PieceTupleList = user.BuildPieceList();
+
         }
 
         private void OnPropertyChanged(string propertyName)

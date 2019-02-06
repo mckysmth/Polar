@@ -9,12 +9,12 @@
         
         <Entry x:Name="Email"
                Keyboard="Email"
-               Text="{Binding Email, Mode=TwoWay}"
+               Text="{Binding User.Email, Mode=TwoWay}"
                Placeholder="Email"/>
         
         <Entry x:Name="Password"
                Placeholder="Password"
-               Text="{Binding Password, Mode=TwoWay}"
+               Text="{Binding User.Password, Mode=TwoWay}"
                IsPassword="true"/>
         
         <Button x:Name="logInButton"

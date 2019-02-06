@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MongoDB.Bson;
@@ -75,11 +76,13 @@ namespace Polar.Model
         {
             Id = ObjectId.GenerateNewId();
             this.ProjectIDs = new ObservableCollection<ObjectId>();
+            Email = "test";
+            Password = "1234";
         }
 
-        public ObservableCollection<(string projectName, Piece piece)> BuildPieceList()
+        public ObservableCollection<Project> BuildPieceList()
         {
-            ObservableCollection<(string projectName, Piece piece)> piecesTuple = new ObservableCollection<(string projectName, Piece piece)>();
+            ObservableCollection<Project> projectList = new ObservableCollection<Project>();
             var collection = Client.GetProjectsCollection();
 
             foreach (ObjectId objID in this.ProjectIDs)
@@ -88,15 +91,18 @@ namespace Polar.Model
                 var document = collection.Find(filter).First();
 
                 Project project = BsonSerializer.Deserialize<Project>(document);
-
-                foreach (Piece piece in project.Pieces)
-                {
-                    piecesTuple.Add((project.ProjectName,piece));
-                }
+                projectList.Add(project);
             }
 
-            return piecesTuple;
-        }
+            //var projectQuery =
+            //from fProject in projectList
+            //from fPiece in fProject.Pieces
+            //group fPiece by fProject;
+
+
+            return projectList; 
+
+          }
 
         private void OnPropertyChanged(string propertyName)
         {
