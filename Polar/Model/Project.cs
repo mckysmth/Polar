@@ -50,7 +50,7 @@ namespace Polar.Model
 
         public static async Task<bool> RegisterProject(Project project)
         {
-            await Client.GetProjectsCollection().InsertOneAsync(project.ToBsonDocument());
+            await Client.GetProjectsCollection().InsertOneAsync(project);
 
             return true;
         }

@@ -87,9 +87,9 @@ namespace Polar.Model
 
             foreach (ObjectId objID in this.ProjectIDs)
             {
-                var filter = Builders<BsonDocument>.Filter.Eq("_id", objID);
-                var document = collection.Find(filter).First();
-                Project project = BsonSerializer.Deserialize<Project>(document);
+                var filter = Builders<Project>.Filter.Eq("_id", objID);
+                Project project = collection.Find(filter).First();
+
 
                 projectList.Add(new ListItem { Project = project });
             }
@@ -116,9 +116,9 @@ namespace Polar.Model
         {
             bool returnValue = false;
 
-            var filter = Builders<BsonDocument>.Filter.Eq("Email", user.Email);
+            var filter = Builders<User>.Filter.Eq("Email", user.Email);
 
-            BsonDocument bsonsUserDoc = user.ToBsonDocument();
+            //BsonDocument bsonsUserDoc = user.ToBsonDocument();
 
             long count = await Client.GetUserCollection().CountDocumentsAsync(filter);
 
@@ -128,7 +128,7 @@ namespace Polar.Model
 
                 Client.userID = user.Id;
 
-                await Client.GetUserCollection().InsertOneAsync(bsonsUserDoc);
+                await Client.GetUserCollection().InsertOneAsync(user);
 
             }
 
@@ -141,15 +141,13 @@ namespace Polar.Model
         {
             bool returnValue = false;
 
-            var filter = Builders<BsonDocument>.Filter.Eq("Email", email);
+            var filter = Builders<User>.Filter.Eq("Email", email);
 
             long count = await Client.GetUserCollection().CountDocumentsAsync(filter);
 
             if (count == 1)
             {
-                var document = await Client.GetUserCollection().Find(filter).FirstAsync();
-
-                User user = BsonSerializer.Deserialize<User>(document);
+                User user = await Client.GetUserCollection().Find(filter).FirstAsync();
                 
                 if (user.email == email && user.password == password)
                 {
@@ -169,8 +167,8 @@ namespace Polar.Model
 
         public static async Task<bool> UpdateProjectIDs(User user)
         {
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", user.Id);
-            var update = Builders<BsonDocument>.Update.Set("ProjectIDs", user.ProjectIDs);
+            var filter = Builders<User>.Filter.Eq("_id", user.Id);
+            var update = Builders<User>.Update.Set("ProjectIDs", user.ProjectIDs);
 
             await Client.GetUserCollection().UpdateOneAsync(filter, update);
 

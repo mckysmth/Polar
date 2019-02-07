@@ -1,6 +1,5 @@
 ﻿using System;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace Polar.Model
@@ -14,25 +13,25 @@ namespace Polar.Model
 
 
 
-        public static IMongoCollection<BsonDocument> GetUserCollection()
+        public static IMongoCollection<User> GetUserCollection()
         {
-            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>("Users");
+            IMongoCollection<User> collection = database.GetCollection<User>("Users");
 
             return collection;
         }
 
-        public static IMongoCollection<BsonDocument> GetProjectsCollection()
+        public static IMongoCollection<Project> GetProjectsCollection()
         {
-            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>("Projects");
+            IMongoCollection<Project> collection = database.GetCollection<Project>("Projects");
 
             return collection;
         }
 
         public static User GetUser()
         {
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", userID);
+            var filter = Builders<User>.Filter.Eq("_id", userID);
            
-            return BsonSerializer.Deserialize<User>(GetUserCollection().Find(filter).First());
+            return GetUserCollection().Find(filter).First();
         }
     }
 }
