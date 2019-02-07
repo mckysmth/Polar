@@ -82,7 +82,8 @@ namespace Polar.Model
 
         public ObservableCollection<ListItem> BuildPieceList()
         {
-            ObservableCollection<ListItem> projectList = new ObservableCollection<ListItem>();
+            ObservableCollection<ListItem> listItems = new ObservableCollection<ListItem>();
+            ObservableCollection<Project> queryable = new ObservableCollection<Project>();
             var collection = Client.GetProjectsCollection();
 
             foreach (ObjectId objID in this.ProjectIDs)
@@ -91,16 +92,30 @@ namespace Polar.Model
                 Project project = collection.Find(filter).First();
 
 
-                projectList.Add(new ListItem { Project = project });
+                queryable.Add(project);
+            }
+            //var queryable = collection.AsQueryable();
+
+            var projectQuery =
+            from fProject in queryable
+            from fPiece in fProject.Pieces
+            group fPiece by fProject;
+
+
+            foreach (var group in projectQuery)
+            {
+                foreach (var piece in group)
+                {
+                    listItems.Add(new ListItem { Piece = piece, Id = group.Key });
+                }
             }
 
-            //var projectQuery =
-            //from fProject in projectList
-            //from fPiece in fProject.Pieces
-            //group fPiece by fProject;
 
 
-            return projectList; 
+
+
+
+            return listItems; 
 
           }
 

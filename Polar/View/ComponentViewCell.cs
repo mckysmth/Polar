@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using Polar.Model;
 using Xamarin.Forms;
 
@@ -8,15 +9,25 @@ namespace Polar.View
 {
     public class ComponentViewCell : ViewCell
     {
-        public static readonly BindableProperty ProjectProperty =
-            BindableProperty.Create("Project", typeof(Project), typeof(ComponentViewCell), null);
+        public static BindableProperty PieceProperty =
+            BindableProperty.Create("Piece", typeof(Piece), typeof(ComponentViewCell), null);
 
-
-        public Project Project
+        public Piece Piece
         {
-            get { return (Project)GetValue(ProjectProperty); }
-            set { SetValue(ProjectProperty, value); }
+            get { return (Piece)GetValue(PieceProperty); }
+            set { SetValue(PieceProperty, value); }
         }
+
+        public static readonly BindableProperty IdProperty =
+            BindableProperty.Create("Id", typeof(ObjectId), typeof(ComponentViewCell), null);
+
+        public ObjectId Id
+        {
+            get { return (ObjectId)GetValue(IdProperty); }
+            set { SetValue(IdProperty, value); }
+        }
+
+        public StackLayout Layout { get; set; }
 
         protected override void OnBindingContextChanged()
         {
@@ -25,17 +36,27 @@ namespace Polar.View
 
             if (BindingContext != null)
             {
-                StackLayout layout = new StackLayout();
+                //var filter = Builders<Project>.Filter.Eq("_id", Id);
+                //var filter = Builders<Project>.Filter.And(Builders<Project>.Filter.r.Eq("_id", Id), Builders<Project>.Filter.ElemMatch(x => x.Pieces, p => p.);
+                var update = Builders<Project>.Update.Set("Pieces.$", Piece);
 
-                Label label = new Label();
-                label.Text = Project.ProjectName;
+                //Client.GetProjectsCollection().UpdateOne(filter, update);
 
-                layout.Children.Add(label);
-                View = layout;
+
+                Label label = new Label
+                {
+                    Text = Piece.PieceName
+                };
+
+                Layout.Children.Add(label);
+                UpdateView();
             }
 
         }
 
-
+        private void UpdateView()
+        {
+            View = Layout;
+        }
     }
 }
