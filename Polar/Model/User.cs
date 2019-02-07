@@ -80,18 +80,18 @@ namespace Polar.Model
             Password = "1234";
         }
 
-        public ObservableCollection<Project> BuildPieceList()
+        public ObservableCollection<ListItem> BuildPieceList()
         {
-            ObservableCollection<Project> projectList = new ObservableCollection<Project>();
+            ObservableCollection<ListItem> projectList = new ObservableCollection<ListItem>();
             var collection = Client.GetProjectsCollection();
 
             foreach (ObjectId objID in this.ProjectIDs)
             {
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", objID);
                 var document = collection.Find(filter).First();
-
                 Project project = BsonSerializer.Deserialize<Project>(document);
-                projectList.Add(project);
+
+                projectList.Add(new ListItem { Project = project });
             }
 
             //var projectQuery =

@@ -8,14 +8,14 @@ namespace Polar.View
 {
     public class ComponentViewCell : ViewCell
     {
-        public static readonly BindableProperty ProjectNameProperty =
-            BindableProperty.Create("ProjectName", typeof(string), typeof(ComponentViewCell), "");
+        public static readonly BindableProperty ProjectProperty =
+            BindableProperty.Create("Project", typeof(Project), typeof(ComponentViewCell), null);
 
 
-        public string ProjectName
+        public Project Project
         {
-            get { return (string)GetValue(ProjectNameProperty); }
-            set { SetValue(ProjectNameProperty, value); }
+            get { return (Project)GetValue(ProjectProperty); }
+            set { SetValue(ProjectProperty, value); }
         }
 
         protected override void OnBindingContextChanged()
@@ -28,7 +28,7 @@ namespace Polar.View
                 StackLayout layout = new StackLayout();
 
                 Label label = new Label();
-                label.Text = ProjectName;
+                label.Text = Project.ProjectName;
 
                 layout.Children.Add(label);
                 View = layout;

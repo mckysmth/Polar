@@ -20,7 +20,7 @@ namespace Polar
 
             DataTemplate customCell = new DataTemplate(typeof(ComponentViewCell));
 
-            customCell.SetBinding(ComponentViewCell.ProjectNameProperty, "ProjectName");
+            customCell.SetBinding(ComponentViewCell.ProjectProperty, "Project");
 
             backLog.ItemTemplate = customCell;
             backLog.ItemsSource = doListVm.User.BuildPieceList();
