@@ -97,18 +97,7 @@ namespace Polar.ViewModel
 
         public async void LogIn()
         {
-            bool canLogIn = await User.Login(User.Email, User.Password);
 
-            if (canLogIn)
-            {
-                await App.Current.MainPage.Navigation.PushAsync(new DoListPage());
-                //user = Client.GetUser();
-            }
-            else
-            {
-
-                ErrorMessage = "Incorrect Username/Password";
-            }
         }
     }
 }

@@ -48,11 +48,6 @@ namespace Polar.Model
             Pieces.Add(new Piece());
         }
 
-        public static async Task<bool> RegisterProject(Project project)
-        {
-            await Client.GetProjectsCollection().InsertOneAsync(project);
 
-            return true;
-        }
     }
 }

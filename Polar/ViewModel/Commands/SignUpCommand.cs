@@ -17,17 +17,6 @@ namespace Polar.ViewModel.Commands
 
         public bool CanExecute(object parameter)
         {
-            User user = (User)parameter;
-            if (user == null)
-            {
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName))
-            {
-                return false;
-            }
-
             return true;
         }
 

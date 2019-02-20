@@ -19,8 +19,7 @@
         
         <Button x:Name="logInButton"
                 Text="Log In"
-                Command="{Binding LogInCommand}"
-                CommandParameter="{Binding User}"/>
+                Command="{Binding LogInCommand}"/>
         
         <Button x:Name="signUpButton"
                 Text="Sign Up"

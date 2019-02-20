@@ -48,7 +48,7 @@ namespace Polar.View
                     Text = Piece.PieceName
                 };
 
-                Layout.Children.Add(label);
+                //Layout.Children.Add(label);
                 UpdateView();
             }
 

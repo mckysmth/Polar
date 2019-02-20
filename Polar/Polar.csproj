@@ -23,5 +23,6 @@
   <ItemGroup>
     <Compile Remove="MainPage.xaml.cs" />
     <Compile Remove="View.cs" />
+    <Compile Remove="Model\Client.cs" />
   </ItemGroup>
 </Project>
