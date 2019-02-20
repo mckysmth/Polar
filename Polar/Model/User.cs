@@ -14,16 +14,7 @@ namespace Polar.Model
     public class User : INotifyPropertyChanged
     {
         public ObservableCollection<ObjectId> ProjectIDs { get; set; }
-
-        public static ObjectId id;
-        public ObjectId Id 
-        { 
-            get { return id; }
-            set 
-            {
-                id = value;
-            }
-        }
+        public ObjectId Id { get; set; }
 
         private string firstName;
 

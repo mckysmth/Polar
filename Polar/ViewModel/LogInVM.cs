@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Polar.Services;
 using Polar.Model;
 using Polar.ViewModel.Commands;
 
@@ -20,41 +21,6 @@ namespace Polar.ViewModel
             { 
                 user = value;
                 OnPropertyChanged("User");
-            }
-        }
-
-        private string email;
-
-        public string Email 
-        { 
-            get { return email; }
-            set 
-            { 
-                email = value;
-                User = new User()
-                {
-                    Email = this.Email,
-                    Password = this.Password
-                };
-
-                OnPropertyChanged("Email");
-            }
-        }
-
-        private string password;
-
-        public string Password
-        {
-            get { return password; }
-            set 
-            { 
-                password = value;
-                User = new User()
-                {
-                    Email = this.Email,
-                    Password = this.Password
-                };
-                OnPropertyChanged("Password");
             }
         }
 
@@ -97,7 +63,24 @@ namespace Polar.ViewModel
 
         public async void LogIn()
         {
+            MongoService mongo = new MongoService();
 
+            User userDB = await mongo.GetUserByEmail(User.Email);
+            if (userDB != null)
+            {
+                if (userDB.Password == User.Password)
+                {
+                    await App.Current.MainPage.Navigation.PushAsync(new DoListPage());
+                }
+                else
+                {
+                    ErrorMessage = "Incorrect Email/Password.";
+                }
+            }
+            else
+            {
+                ErrorMessage = "Incorrect Email/Password.";
+            }
         }
     }
 }

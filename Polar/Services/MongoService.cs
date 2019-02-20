@@ -96,6 +96,15 @@ namespace Polar.Services
             return null;
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            var singleUser = await UserCollection
+                .Find(f => f.Email.Equals(email))
+                .FirstOrDefaultAsync();
+
+            return singleUser;
+        }
+
         public async System.Threading.Tasks.Task InsertProject(Project project)
         {
             await ProjectCollection.InsertOneAsync(project);

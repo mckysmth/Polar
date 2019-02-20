@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Polar.Model;
+using Polar.Services;
 using Polar.ViewModel.Commands;
 
 namespace Polar.ViewModel
@@ -66,7 +67,28 @@ namespace Polar.ViewModel
 
         public async void NavigateToLading()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new DoListPage());
+            MongoService mongo = new MongoService();
+
+            if (User.Password == ConfirmationPassword)
+            {
+                if (await mongo.GetUserByEmail(User.Email) == null)
+                {
+                    await mongo.InsertNewUser(User);
+
+                    await App.Current.MainPage.Navigation.PushAsync(new DoListPage());
+                }
+                else
+                {
+                    ErrorMessage = "Account already Exists.";
+                }
+            }
+            else
+            {
+                ErrorMessage = "Passwords do not match.";
+            }
+
+
+
         }
 
     }

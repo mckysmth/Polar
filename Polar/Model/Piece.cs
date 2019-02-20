@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using MongoDB.Bson;
 
 namespace Polar.Model
 {
@@ -8,6 +9,7 @@ namespace Polar.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public ObjectId Id { get; set; }
         public ObservableCollection<Task> Tasks { get; private set; }
 
         private string pieceName;
@@ -36,6 +38,7 @@ namespace Polar.Model
 
         public Piece()
         {
+            Id = ObjectId.GenerateNewId();
             Tasks = new ObservableCollection<Task>();
         }
 
