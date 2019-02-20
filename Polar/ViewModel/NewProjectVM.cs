@@ -9,7 +9,7 @@ namespace Polar.ViewModel
     public class NewProjectVM : INotifyPropertyChanged
     {
         public CreateNewProjectCommand CreateNewProjectCommand { get; set; }
-        private MongoService mongo;
+
         private User user;
 
         public User User
@@ -55,7 +55,10 @@ namespace Polar.ViewModel
 
         public async void CreateNewProject()
         {
+            MongoService mongo = new MongoService();
 
+            await mongo.InsertNewProject(Project);
+            await mongo.UpdateUser(User);
         }
 
 

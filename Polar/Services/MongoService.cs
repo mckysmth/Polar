@@ -105,9 +105,14 @@ namespace Polar.Services
             return singleUser;
         }
 
-        public async System.Threading.Tasks.Task InsertProject(Project project)
+        public async System.Threading.Tasks.Task InsertNewProject(Project project)
         {
             await ProjectCollection.InsertOneAsync(project);
+        }
+
+        public async System.Threading.Tasks.Task UpdateUser(User user)
+        {
+            await UserCollection.ReplaceOneAsync(u => u.Id.Equals(user.Id), user);
         }
 
         public async Task<ObservableCollection<Project>> GetAllProjects()
