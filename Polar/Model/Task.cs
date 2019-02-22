@@ -1,13 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
-using MongoDB.Bson;
+using SQLite;
 
 namespace Polar.Model
 {
     public class Task : INotifyPropertyChanged
     {
-        public ObjectId Id { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
 
+        public int PieceID { get; set; }
         private string taskName;
 
         public string TaskName
@@ -24,7 +26,6 @@ namespace Polar.Model
 
         public Task()
         {
-            Id = ObjectId.GenerateNewId();
         }
 
         private void OnPropertyChanged(string propertyName)

@@ -11,8 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1029999" />
-    <PackageReference Include="MongoDB.Bson" Version="2.7.3" />
-    <PackageReference Include="MongoDB.Driver" Version="2.7.3" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
   </ItemGroup>
   <ItemGroup>

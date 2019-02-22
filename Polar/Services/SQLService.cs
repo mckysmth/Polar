@@ -11,14 +11,31 @@ namespace Polar.Services
 
         SQLiteConnection connection;
 
-        public void InsertUser(User user)
+        public SQLService()
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
+                //connection.DropTable<User>();
+                //connection.DropTable<Project>();
+                //connection.DropTable<Piece>();
+                //connection.DropTable<Task>();
+                //connection.DropTable<UserProject>();
+
+
                 connection.CreateTable<User>();
+                connection.CreateTable<Project>();
+                connection.CreateTable<Piece>();
+                connection.CreateTable<Task>();
+                connection.CreateTable<UserProject>();
+            }
+        }
 
+        public void InsertNewUser(User user)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                App.user = user;
                 connection.Insert(user);
-
             }
         }
 
@@ -27,8 +44,6 @@ namespace Polar.Services
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
-                connection.CreateTable<User>();
-
                 List<User> users = connection.Table<User>().ToList();
 
                 return users;
@@ -39,13 +54,21 @@ namespace Polar.Services
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
-                connection.CreateTable<User>();
-
                 List<User> users = connection.Table<User>().ToList();
 
                 User returnUser = users.FirstOrDefault(u => u.Email == user.Email);
 
                 return returnUser;
+            }
+        }
+
+        public void UpdateUser(User user)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                App.user = user;
+                connection.Update(user);
+
             }
         }
     }

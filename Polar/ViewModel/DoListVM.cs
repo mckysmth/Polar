@@ -26,7 +26,7 @@ namespace Polar.ViewModel
 
         public DoListVM()
         {
-
+            User = App.user;
 
         }
 

@@ -28,5 +28,10 @@ namespace Polar
 
 
         }
+
+        void NewProject_Clicked(object sender, System.EventArgs e)
+        {
+            Navigation.PushAsync(new NewProjectPage());
+        }
     }
 }

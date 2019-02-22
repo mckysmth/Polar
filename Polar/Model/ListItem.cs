@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using MongoDB.Bson;
 
 namespace Polar.Model
 {
@@ -19,7 +18,7 @@ namespace Polar.Model
             }
         }
 
-        public ObjectId Id { get; set; }
+        //public ObjectId Id { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

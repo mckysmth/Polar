@@ -2,15 +2,21 @@
 using Polar.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using MongoDB.Bson;
 using System.Threading.Tasks;
+using SQLite;
+using System.Collections.Generic;
 
 namespace Polar.Model
 {
     public class Project : INotifyPropertyChanged
-    {
-        public ObjectId Id { get; set; }
+    { 
+
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
         public ObservableCollection<Piece> Pieces { get; set; }
+
+        public List<User> User { get; set; }
 
         private string projectName;
 
@@ -28,7 +34,6 @@ namespace Polar.Model
 
         public Project()
         {
-            Id = ObjectId.GenerateNewId();
 
             this.Pieces = new ObservableCollection<Piece>();
 
@@ -47,7 +52,5 @@ namespace Polar.Model
         {
             Pieces.Add(new Piece());
         }
-
-
     }
 }

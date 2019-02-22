@@ -38,9 +38,10 @@ namespace Polar.ViewModel
 
         public NewProjectVM()
         {
+            User = App.user;
+
             Project = new Project();
 
-            User.AddProject(Project);
             CreateNewProjectCommand = new CreateNewProjectCommand(this);
         }
 
@@ -53,12 +54,13 @@ namespace Polar.ViewModel
             }
         }
 
-        public async void CreateNewProject()
+        public void CreateNewProject()
         {
-            MongoService mongo = new MongoService();
+            User.AddProject(Project);
 
-            await mongo.InsertNewProject(Project);
-            await mongo.UpdateUser(User);
+            SQLService SQL = new SQLService();
+
+            SQL.UpdateUser(User);
         }
 
 

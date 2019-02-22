@@ -51,7 +51,7 @@ namespace Polar.ViewModel
 
         public SignUpVM()
         {
-            User = new User();
+            User = App.user;
             SignUpCommand = new SignUpCommand(this);
         }
 
@@ -65,17 +65,17 @@ namespace Polar.ViewModel
         }
 
 
-        public async void NavigateToLading()
+        public void NavigateToLading()
         {
-            MongoService mongo = new MongoService();
+            SQLService SQL = new SQLService();
 
             if (User.Password == ConfirmationPassword)
             {
-                if (await mongo.GetUserByEmail(User.Email) == null)
+                if (SQL.GetUserByEmail(User) == null)
                 {
-                    await mongo.InsertNewUser(User);
+                    SQL.InsertNewUser(User);
 
-                    await App.Current.MainPage.Navigation.PushAsync(new DoListPage());
+                    App.Current.MainPage.Navigation.PushAsync(new DoListPage());
                 }
                 else
                 {

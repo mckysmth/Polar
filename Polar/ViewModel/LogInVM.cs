@@ -42,7 +42,7 @@ namespace Polar.ViewModel
 
         public LogInVM()
         {
-            User = new User();
+            User = App.user;
             LogInToSignUpNavCommand = new LogInToSignUpNavCommand(this);
             LogInCommand = new LogInCommand(this);
         }
@@ -63,13 +63,14 @@ namespace Polar.ViewModel
 
         public async void LogIn()
         {
-            MongoService mongo = new MongoService();
+            SQLService SQL = new SQLService();
 
-            User userDB = await mongo.GetUserByEmail(User.Email);
+            User userDB = SQL.GetUserByEmail(User);
             if (userDB != null)
             {
                 if (userDB.Password == User.Password)
                 {
+                    App.user = user;
                     await App.Current.MainPage.Navigation.PushAsync(new DoListPage());
                 }
                 else

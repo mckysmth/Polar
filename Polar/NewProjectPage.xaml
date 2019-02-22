@@ -7,7 +7,7 @@
                 Clicked="addCompButton_Clicked"/>
                 
 
-            <Button Text="Sign Up"
+            <Button Text="Done"
                 Command="{Binding CreateNewProjectCommand}"/>
         </StackLayout>
 

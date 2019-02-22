@@ -1,4 +1,5 @@
 ﻿using System;
+using Polar.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,6 +9,7 @@ namespace Polar
     public partial class App : Application
     {
         public static string DatabaseLocation = string.Empty;
+        public static User user = new User();
 
         public App()
         {
@@ -19,7 +21,7 @@ namespace Polar
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new NavPage());
+            MainPage = new NavigationPage(new LogInPage());
 
             DatabaseLocation = databaseLocation;
         }

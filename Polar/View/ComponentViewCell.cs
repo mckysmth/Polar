@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using Polar.Model;
 using Xamarin.Forms;
 
@@ -18,14 +16,14 @@ namespace Polar.View
             set { SetValue(PieceProperty, value); }
         }
 
-        public static readonly BindableProperty IdProperty =
-            BindableProperty.Create("Id", typeof(ObjectId), typeof(ComponentViewCell), null);
+        //public static readonly BindableProperty IdProperty =
+            //BindableProperty.Create("Id", typeof(ObjectId), typeof(ComponentViewCell), null);
 
-        public ObjectId Id
-        {
-            get { return (ObjectId)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
-        }
+        //public ObjectId Id
+        //{
+        //    get { return (ObjectId)GetValue(IdProperty); }
+        //    set { SetValue(IdProperty, value); }
+        //}
 
         public StackLayout Layout { get; set; }
 
@@ -38,7 +36,7 @@ namespace Polar.View
             {
                 //var filter = Builders<Project>.Filter.Eq("_id", Id);
                 //var filter = Builders<Project>.Filter.And(Builders<Project>.Filter.r.Eq("_id", Id), Builders<Project>.Filter.ElemMatch(x => x.Pieces, p => p.);
-                var update = Builders<Project>.Update.Set("Pieces.$", Piece);
+                //var update = Builders<Project>.Update.Set("Pieces.$", Piece);
 
                 //Client.GetProjectsCollection().UpdateOne(filter, update);
 

@@ -5,16 +5,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using MongoDB.Bson;
-
+using SQLite;
 
 namespace Polar.Model
 {
 
     public class User : INotifyPropertyChanged
     {
-        public ObservableCollection<ObjectId> ProjectIDs { get; set; }
-        public ObjectId Id { get; set; }
+
+        [PrimaryKey, AutoIncrement] 
+        public int Id { get; set; }
 
         private string firstName;
 
@@ -63,16 +63,16 @@ namespace Polar.Model
                 OnPropertyChanged("Password");
             }
         }
-
-
+        //, "UserId", "ProjectId"
+        public ObservableCollection<Project> Projects { get; set; }
+    
 
         public event PropertyChangedEventHandler PropertyChanged;
 
 
         public User()
         {
-            Id = ObjectId.GenerateNewId();
-            this.ProjectIDs = new ObservableCollection<ObjectId>();
+            Projects = new ObservableCollection<Project>();
             Email = "test";
             Password = "1234";
         }
@@ -87,7 +87,23 @@ namespace Polar.Model
 
         public void AddProject(Project project) 
         {
-            ProjectIDs.Add(project.Id);
+            Projects.Add(project);
+        }
+
+        public ObservableCollection<Piece> GetPieces()
+        {
+
+            ObservableCollection<Piece> pieceList = new ObservableCollection<Piece>();
+
+            foreach (var project in Projects)
+            {
+                foreach (var piece in project.Pieces)
+                {
+                    pieceList.Add(piece);
+                }
+            }
+
+            return pieceList;
         }
     }
 }
