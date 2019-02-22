@@ -16,7 +16,7 @@ namespace Polar.Model
 
         public ObservableCollection<Piece> Pieces { get; set; }
 
-        public List<User> User { get; set; }
+        //public List<User> User { get; set; }
 
         private string projectName;
 
@@ -34,10 +34,18 @@ namespace Polar.Model
 
         public Project()
         {
-
             this.Pieces = new ObservableCollection<Piece>();
 
-            Pieces.Add(new Piece());
+        }
+
+        public Project(bool SholdAddPiece)
+        {
+
+            this.Pieces = new ObservableCollection<Piece>();
+            if (SholdAddPiece)
+            {
+                Pieces.Add(new Piece(this.Id));
+            }
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -50,7 +58,12 @@ namespace Polar.Model
 
         public void AddPiece() 
         {
-            Pieces.Add(new Piece());
+            Pieces.Add(new Piece(this.Id));
+        }
+
+        public void AddPiece(Piece piece)
+        {
+            Pieces.Add(piece);
         }
     }
 }

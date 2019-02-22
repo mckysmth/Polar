@@ -10,6 +10,7 @@ namespace Polar.Model
         public int Id { get; set; }
 
         public int PieceID { get; set; }
+
         private string taskName;
 
         public string TaskName
@@ -26,6 +27,11 @@ namespace Polar.Model
 
         public Task()
         {
+        }
+
+        public Task(int id)
+        {
+            PieceID = id;
         }
 
         private void OnPropertyChanged(string propertyName)

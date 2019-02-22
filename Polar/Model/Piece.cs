@@ -10,12 +10,12 @@ namespace Polar.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<Task> Tasks { get; private set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
 
         public int ProjectID { get; set; }
 
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public ObservableCollection<Task> Tasks { get; private set; }
 
         private string pieceName;
 
@@ -46,6 +46,12 @@ namespace Polar.Model
             Tasks = new ObservableCollection<Task>();
         }
 
+        public Piece(int id)
+        {
+            Tasks = new ObservableCollection<Task>();
+            ProjectID = id;
+        }
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -56,7 +62,12 @@ namespace Polar.Model
 
         public void AddTask()
         {
-            Tasks.Add(new Task());
+            Tasks.Add(new Task(this.Id));
+        }
+
+        public void AddTask(Task task)
+        {
+            Tasks.Add(task);
         }
 
 
