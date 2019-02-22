@@ -5,15 +5,17 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using SQLite;
 using System.Collections.Generic;
+using Polar.Services;
 
 namespace Polar.Model
 {
     public class Project : INotifyPropertyChanged
     { 
 
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int Id { get; set; }
 
+        [Ignore]
         public ObservableCollection<Piece> Pieces { get; set; }
 
         //public List<User> User { get; set; }
@@ -34,17 +36,19 @@ namespace Polar.Model
 
         public Project()
         {
-            this.Pieces = new ObservableCollection<Piece>();
-
+            SQLService SQL = new SQLService();
+            Id = SQL.CountProjects();
+            Pieces = new ObservableCollection<Piece>();
         }
 
         public Project(bool SholdAddPiece)
         {
-
-            this.Pieces = new ObservableCollection<Piece>();
+            SQLService SQL = new SQLService();
+            Id = SQL.CountProjects();
+            Pieces = new ObservableCollection<Piece>();
             if (SholdAddPiece)
             {
-                Pieces.Add(new Piece(this.Id));
+                Pieces.Add(new Piece(this.Id, SQL.CountPieces()));
             }
         }
 
@@ -58,7 +62,12 @@ namespace Polar.Model
 
         public void AddPiece() 
         {
-            Pieces.Add(new Piece(this.Id));
+            SQLService SQL = new SQLService();
+            int pieceID;
+
+            pieceID = SQL.CountPieces() + Pieces.Count;
+            
+            Pieces.Add(new Piece(this.Id, pieceID));
         }
 
         public void AddPiece(Piece piece)

@@ -61,6 +61,9 @@ namespace Polar.ViewModel
             SQLService SQL = new SQLService();
 
             SQL.UpdateUser(User);
+            SQL.InsertNewProject(User, Project);
+
+            App.Current.MainPage.Navigation.PopAsync();
         }
 
 

@@ -51,7 +51,7 @@ namespace Polar.ViewModel
 
         public SignUpVM()
         {
-            User = App.user;
+            User = new User();
             SignUpCommand = new SignUpCommand(this);
         }
 

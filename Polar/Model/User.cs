@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Polar.Services;
 using SQLite;
 
 namespace Polar.Model
@@ -13,7 +14,7 @@ namespace Polar.Model
     public class User : INotifyPropertyChanged
     {
 
-        [PrimaryKey, AutoIncrement] 
+        [PrimaryKey] 
         public int Id { get; set; }
 
         private string firstName;
@@ -63,7 +64,8 @@ namespace Polar.Model
                 OnPropertyChanged("Password");
             }
         }
-        //, "UserId", "ProjectId"
+
+        [Ignore]
         public ObservableCollection<Project> Projects { get; set; }
     
 
@@ -72,6 +74,8 @@ namespace Polar.Model
 
         public User()
         {
+            SQLService SQL = new SQLService();
+            Id = SQL.CountUsers();
             Projects = new ObservableCollection<Project>();
             Email = "test";
             Password = "1234";

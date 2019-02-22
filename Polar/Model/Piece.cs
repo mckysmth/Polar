@@ -10,11 +10,12 @@ namespace Polar.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int Id { get; set; }
 
         public int ProjectID { get; set; }
 
+        [Ignore]
         public ObservableCollection<Task> Tasks { get; private set; }
 
         private string pieceName;
@@ -46,8 +47,9 @@ namespace Polar.Model
             Tasks = new ObservableCollection<Task>();
         }
 
-        public Piece(int id)
+        public Piece(int id, int pieceID)
         {
+            Id = pieceID;
             Tasks = new ObservableCollection<Task>();
             ProjectID = id;
         }
