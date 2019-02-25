@@ -23,10 +23,12 @@ namespace Polar.ViewModel
                 OnPropertyChanged("User");
             }
         }
+        public ObservableCollection<Piece> Backlog { get; set; }
 
         public DoListVM()
         {
             User = App.user;
+            Backlog = User.GetPieces();
 
         }
 

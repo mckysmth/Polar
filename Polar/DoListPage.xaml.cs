@@ -18,13 +18,11 @@ namespace Polar
             doListVm = new DoListVM();
             BindingContext = doListVm;
 
-            //DataTemplate customCell = new DataTemplate(typeof(ComponentViewCell));
+            DataTemplate customCell = new DataTemplate(typeof(ComponentViewCell));
 
-            //customCell.SetBinding(ComponentViewCell.PieceProperty, "Piece");
-            //customCell.SetBinding(ComponentViewCell.IdProperty, "Id");
+            backLog.ItemsSource = doListVm.Backlog;
+            backLog.ItemTemplate = customCell;
 
-            //backLog.ItemTemplate = customCell;
-            //backLog.ItemsSource = doListVm.User.BuildPieceList();
 
 
         }

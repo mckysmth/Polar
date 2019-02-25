@@ -90,20 +90,19 @@ namespace Polar.Model
             Projects.Add(project);
         }
 
-        //public ObservableCollection<Piece> GetPieces()
-        //{
+        public ObservableCollection<Piece> GetPieces()
+        {
+            ObservableCollection<Piece> pieceList = new ObservableCollection<Piece>();
 
-        //    ObservableCollection<Piece> pieceList = new ObservableCollection<Piece>();
+            foreach (var project in Projects)
+            {
+                foreach (var piece in project.Pieces)
+                {
+                    pieceList.Add(piece);
+                }
+            }
 
-        //    foreach (var project in Projects)
-        //    {
-        //        foreach (var piece in project.Pieces)
-        //        {
-        //            pieceList.Add(piece);
-        //        }
-        //    }
-
-        //    return pieceList;
-        //}
+            return pieceList;
+        }
     }
 }

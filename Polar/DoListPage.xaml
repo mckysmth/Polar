@@ -6,8 +6,11 @@
         <Button x:Name="NewProject" Text="New Project" Clicked="NewProject_Clicked"/>
     </StackLayout>
     
-<!--    <ListView x:Name="backLog">
-    </ListView>-->
+    <StackLayout>
+        <ListView x:Name="backLog" HasUnevenRows="true" IsPullToRefreshEnabled="true">
+        </ListView>
+    </StackLayout>
+
     
 
 </ContentPage>

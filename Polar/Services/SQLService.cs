@@ -160,9 +160,22 @@ namespace Polar.Services
 
         private List<Task> GetTaskListByPieceID(Piece piece)
         {
-            List<Task> tasks = connection.Table<Task>().ToList().FindAll(t => t.PieceId == piece.Id);
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                List<Task> tasks = connection.Table<Task>().ToList().FindAll(t => t.PieceId == piece.Id);
 
-            return tasks;
+                return tasks;
+            }
+        }
+
+        public Project GetProjectById(string projectId)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                Project project = connection.Table<Project>().Where(p => p.Id == projectId).FirstOrDefault();
+
+                return project;
+            }
         }
     }
 }

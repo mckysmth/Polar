@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Polar.Services;
 using SQLite;
 
 namespace Polar.Model
@@ -72,6 +73,14 @@ namespace Polar.Model
         public void AddTask(Task task)
         {
             Tasks.Add(task);
+        }
+
+        public Project getProject()
+        {
+            SQLService SQL = new SQLService();
+
+            return SQL.GetProjectById(ProjectID);
+
         }
 
 

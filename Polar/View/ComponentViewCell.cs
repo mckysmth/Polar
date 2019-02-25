@@ -7,25 +7,17 @@ namespace Polar.View
 {
     public class ComponentViewCell : ViewCell
     {
-        public static BindableProperty PieceProperty =
-            BindableProperty.Create("Piece", typeof(Piece), typeof(ComponentViewCell), null);
 
-        public Piece Piece
+
+        public StackLayout MainLayout { get; set; }
+
+        bool isVisible;
+
+        public ComponentViewCell()
         {
-            get { return (Piece)GetValue(PieceProperty); }
-            set { SetValue(PieceProperty, value); }
+            MainLayout = new StackLayout();
+            isVisible = false;
         }
-
-        //public static readonly BindableProperty IdProperty =
-            //BindableProperty.Create("Id", typeof(ObjectId), typeof(ComponentViewCell), null);
-
-        //public ObjectId Id
-        //{
-        //    get { return (ObjectId)GetValue(IdProperty); }
-        //    set { SetValue(IdProperty, value); }
-        //}
-
-        public StackLayout Layout { get; set; }
 
         protected override void OnBindingContextChanged()
         {
@@ -34,27 +26,70 @@ namespace Polar.View
 
             if (BindingContext != null)
             {
-                //var filter = Builders<Project>.Filter.Eq("_id", Id);
-                //var filter = Builders<Project>.Filter.And(Builders<Project>.Filter.r.Eq("_id", Id), Builders<Project>.Filter.ElemMatch(x => x.Pieces, p => p.);
-                //var update = Builders<Project>.Update.Set("Pieces.$", Piece);
+                Piece piece = (Piece)BindingContext;
 
-                //Client.GetProjectsCollection().UpdateOne(filter, update);
-
-
-                Label label = new Label
+                Label pieceName = new Label
                 {
-                    Text = Piece.PieceName
+                    Text = piece.PieceName
                 };
 
-                //Layout.Children.Add(label);
-                UpdateView();
+                Label projectName = new Label
+                {
+                    Text = piece.getProject().ProjectName
+                };
+
+
+                MainLayout.Children.Add(pieceName);
+                MainLayout.Children.Add(projectName);
+
+                Button button = new Button
+                {
+                    Text = "Test BTN"
+                };
+                button.Clicked += Button_Clicked;
+
+                MainLayout.Children.Add(button);
+
+                StackLayout taskLayout = new StackLayout();
+
+                foreach (var task in piece.Tasks)
+                {
+                    Label taskName = new Label
+                    {
+                        Text = task.TaskName
+                    };
+
+                    taskLayout.Children.Add(taskName);
+                }
+
+                taskLayout.IsVisible = isVisible;
+
+                MainLayout.Children.Add(taskLayout);
+
+
+                View = MainLayout;
+
+
+            }
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
+            MainLayout.Children.Clear();
+
+            if (isVisible)
+            {
+                isVisible = false;
+            }
+            else
+            {
+                isVisible = true;
             }
 
+            OnBindingContextChanged();
         }
 
-        private void UpdateView()
-        {
-            View = Layout;
-        }
+
     }
 }
