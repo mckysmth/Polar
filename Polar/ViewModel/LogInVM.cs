@@ -42,7 +42,7 @@ namespace Polar.ViewModel
 
         public LogInVM()
         {
-            User = new User();
+            User = App.user;
             LogInToSignUpNavCommand = new LogInToSignUpNavCommand(this);
             LogInCommand = new LogInCommand(this);
         }

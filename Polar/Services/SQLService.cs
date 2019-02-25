@@ -40,6 +40,7 @@ namespace Polar.Services
             }
         }
 
+
         public List<User> GetUserList(User user)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
@@ -58,12 +59,9 @@ namespace Polar.Services
 
                 User returnUser = users.FirstOrDefault(u => u.Email == user.Email);
 
-                if (returnUser != null)
+                foreach (var project in GetProjectListByUserID(returnUser))
                 {
-                    foreach (var project in GetProjectListByUserID(returnUser))
-                    {
-                        returnUser.AddProject(project);
-                    }
+                    returnUser.AddProject(project);
                 }
 
                 return returnUser;
@@ -93,32 +91,33 @@ namespace Polar.Services
                 connection.Insert(userProject);
                 connection.Insert(project);
                 InsertAllPieces(project.Pieces);
-
-
             }
         }
 
-        public void InsertAllPieces(ObservableCollection<Piece> pieces)
+        private void InsertAllPieces(ObservableCollection<Piece> pieces)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
-                connection.InsertAll(pieces);
                 foreach (var piece in pieces)
                 {
+                    connection.Insert(piece);
                     InsertAllTasks(piece.Tasks);
                 }
             }
         }
 
-        public void InsertAllTasks(ObservableCollection<Task> tasks)
+        private void InsertAllTasks(ObservableCollection<Task> tasks)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
-                connection.InsertAll(tasks);
+                foreach (var task in tasks)
+                {
+                    connection.Insert(task);
+                }
             }
         }
 
-        public List<Project> GetProjectListByUserID(User user)
+        private List<Project> GetProjectListByUserID(User user)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
@@ -143,7 +142,7 @@ namespace Polar.Services
             }
         }
 
-        public List<Piece> getPieceByProjectID(Project project)
+        private List<Piece> getPieceByProjectID(Project project)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
@@ -160,73 +159,11 @@ namespace Polar.Services
             }
         }
 
-        public List<Task> GetTaskListByPieceID(Piece piece)
+        private List<Task> GetTaskListByPieceID(Piece piece)
         {
-            using (connection = new SQLiteConnection(App.DatabaseLocation))
-            {
-                List<Task> tasks = connection.Table<Task>().ToList().FindAll(t => t.PieceID == piece.Id);
+            List<Task> tasks = connection.Table<Task>().ToList().FindAll(t => t.PieceID == piece.Id);
 
-                return tasks;
-            }
-        }
-
-        public int CountUsers()
-        {
-            using (connection = new SQLiteConnection(App.DatabaseLocation))
-            {
-                try
-                {
-                    return connection.Table<User>().Count();
-                }
-                catch (Exception ex) {
-                    return 0;
-                }
-
-            }
-        }
-
-        public int CountProjects()
-        {
-            using (connection = new SQLiteConnection(App.DatabaseLocation))
-            {
-                try
-                {
-                    return connection.Table<Project>().Count();
-                }
-                catch (Exception ex)
-                {
-                    return 0;
-                }
-            }
-        }
-
-        public int CountPieces()
-        {
-            using (connection = new SQLiteConnection(App.DatabaseLocation))
-            {
-                try
-                {
-                    return connection.Table<Piece>().Count();
-                }
-                catch (Exception ex)
-                {
-                    return 0;
-                }
-            }
-        }
-        public int CountTasks()
-        {
-            using (connection = new SQLiteConnection(App.DatabaseLocation))
-            {
-                try
-                {
-                    return connection.Table<Task>().Count();
-                }
-                catch (Exception ex)
-                {
-                    return 0;
-                }
-            }
+            return tasks;
         }
     }
 }

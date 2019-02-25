@@ -10,9 +10,13 @@ namespace Polar
     public partial class App : Application
     {
         public static string DatabaseLocation = string.Empty;
+<<<<<<< HEAD
         public static User user;
         //public static MobileServiceClient MobileServiceClient = 
             //new MobileServiceClient("");
+=======
+        public static User user = new User();
+>>>>>>> parent of ce62694... SQL save and load project
 
         public App()
         {
