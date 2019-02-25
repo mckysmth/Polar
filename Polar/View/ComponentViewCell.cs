@@ -16,6 +16,7 @@ namespace Polar.View
         public ComponentViewCell()
         {
             MainLayout = new StackLayout();
+            MainLayout.BackgroundColor = Color.Blue;
             isVisible = false;
         }
 
@@ -76,18 +77,13 @@ namespace Polar.View
         private void Button_Clicked(object sender, EventArgs e)
         {
 
-            MainLayout.Children.Clear();
+            Button button = (Button)sender;
 
-            if (isVisible)
-            {
-                isVisible = false;
-            }
-            else
-            {
-                isVisible = true;
-            }
+            StackLayout stackLayout = (StackLayout)button.Parent;
+            stackLayout.Children[stackLayout.Children.Count - 1].IsVisible = true;
 
-            OnBindingContextChanged();
+            this.ForceUpdateSize();
+
         }
 
 
