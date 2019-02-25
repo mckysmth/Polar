@@ -13,7 +13,7 @@ namespace Polar.Model
 
     public class User : INotifyPropertyChanged
     {
-
+        [PrimaryKey]
         public string Id { get; set; }
 
         private string firstName;

@@ -40,7 +40,7 @@ namespace Polar.ViewModel
         {
             User = App.user;
 
-            Project = new Project(true);
+            Project = new Project();
 
             CreateNewProjectCommand = new CreateNewProjectCommand(this);
         }

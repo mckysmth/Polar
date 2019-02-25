@@ -10,8 +10,8 @@ using Polar.Services;
 namespace Polar.Model
 {
     public class Project : INotifyPropertyChanged
-    { 
-
+    {
+        [PrimaryKey]
         public string Id { get; set; }
 
         [Ignore]

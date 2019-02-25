@@ -10,6 +10,7 @@ namespace Polar.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        [PrimaryKey]
         public string Id { get; set; }
 
         public string ProjectID { get; set; }

@@ -11,8 +11,8 @@ namespace Polar
     {
         public static string DatabaseLocation = string.Empty;
         public static User user;
-        public static MobileServiceClient MobileServiceClient = 
-            new MobileServiceClient("");
+        //public static MobileServiceClient MobileServiceClient = 
+            //new MobileServiceClient("");
 
         public App()
         {
