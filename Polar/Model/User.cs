@@ -17,10 +17,13 @@ namespace Polar.Model
         [PrimaryKey]
 =======
 
+<<<<<<< HEAD
 >>>>>>> parent of d6477a5... Had to commit
         public string Id { get; set; }
 =======
 
+=======
+>>>>>>> parent of ce62694... SQL save and load project
         [PrimaryKey, AutoIncrement] 
         public int Id { get; set; }
 >>>>>>> parent of ce62694... SQL save and load project
@@ -82,8 +85,11 @@ namespace Polar.Model
         public User()
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             Id = Guid.NewGuid().ToString();
+=======
+>>>>>>> parent of ce62694... SQL save and load project
 =======
 >>>>>>> parent of ce62694... SQL save and load project
             Projects = new ObservableCollection<Project>();
