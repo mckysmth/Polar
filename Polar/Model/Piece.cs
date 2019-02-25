@@ -11,7 +11,10 @@ namespace Polar.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         [PrimaryKey]
+=======
+>>>>>>> parent of d6477a5... Had to commit
         public string Id { get; set; }
 =======
         [PrimaryKey, AutoIncrement]

@@ -11,6 +11,11 @@ namespace Polar
     {
         public static string DatabaseLocation = string.Empty;
         public static User user;
+<<<<<<< HEAD
+=======
+        public static MobileServiceClient MobileServiceClient = 
+            new MobileServiceClient("");
+>>>>>>> parent of d6477a5... Had to commit
 
         public App()
         {

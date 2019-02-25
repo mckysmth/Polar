@@ -13,7 +13,11 @@ namespace Polar.Model
     public class User : INotifyPropertyChanged
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         [PrimaryKey]
+=======
+
+>>>>>>> parent of d6477a5... Had to commit
         public string Id { get; set; }
 =======
 
