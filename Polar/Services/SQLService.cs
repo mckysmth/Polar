@@ -84,8 +84,6 @@ namespace Polar.Services
             {
                 UserProject userProject = new UserProject
                 {
-                    UserId = user.Id,
-                    ProjectId = project.Id
                 };
 
                 connection.Insert(userProject);

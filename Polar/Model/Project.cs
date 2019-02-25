@@ -8,27 +8,10 @@ using System.Collections.Generic;
 
 namespace Polar.Model
 {
-    public class Project : INotifyPropertyChanged
-<<<<<<< HEAD
-<<<<<<< HEAD
-    {
-        [PrimaryKey]
-=======
-    { 
+    public class Project : INotifyPropertyChanged { 
 
-<<<<<<< HEAD
->>>>>>> parent of d6477a5... Had to commit
-        public string Id { get; set; }
-=======
-    { 
 
-=======
->>>>>>> parent of ce62694... SQL save and load project
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
->>>>>>> parent of ce62694... SQL save and load project
-
-        public ObservableCollection<Piece> Pieces { get; set; }
+    public ObservableCollection<Piece> Pieces { get; set; }
 
         //public List<User> User { get; set; }
 
@@ -48,15 +31,6 @@ namespace Polar.Model
 
         public Project()
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            Id = Guid.NewGuid().ToString();
-            Pieces = new ObservableCollection<Piece>();
-            Pieces.Add(new Piece(this.Id));
-            
-=======
-=======
->>>>>>> parent of ce62694... SQL save and load project
             this.Pieces = new ObservableCollection<Piece>();
 
         }
@@ -67,9 +41,7 @@ namespace Polar.Model
             this.Pieces = new ObservableCollection<Piece>();
             if (SholdAddPiece)
             {
-                Pieces.Add(new Piece(this.Id));
             }
->>>>>>> parent of ce62694... SQL save and load project
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -82,7 +54,6 @@ namespace Polar.Model
 
         public void AddPiece() 
         {
-            Pieces.Add(new Piece(this.Id));
         }
 
         public void AddPiece(Piece piece)

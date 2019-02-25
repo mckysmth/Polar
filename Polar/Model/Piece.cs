@@ -10,21 +10,7 @@ namespace Polar.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        [PrimaryKey]
-=======
->>>>>>> parent of d6477a5... Had to commit
-        public string Id { get; set; }
-=======
-=======
->>>>>>> parent of ce62694... SQL save and load project
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
->>>>>>> parent of ce62694... SQL save and load project
 
-        public string ProjectID { get; set; }
 
         public ObservableCollection<Task> Tasks { get; private set; }
 
@@ -57,22 +43,7 @@ namespace Polar.Model
             Tasks = new ObservableCollection<Task>();
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        public Piece(string projectID)
-        {
-            Id = Guid.NewGuid().ToString();
-=======
-        public Piece(int id)
-        {
->>>>>>> parent of ce62694... SQL save and load project
-=======
-        public Piece(int id)
-        {
->>>>>>> parent of ce62694... SQL save and load project
-            Tasks = new ObservableCollection<Task>();
-            ProjectID = projectID;
-        }
+
 
         private void OnPropertyChanged(string propertyName)
         {
@@ -84,7 +55,6 @@ namespace Polar.Model
 
         public void AddTask()
         {
-            Tasks.Add(new Task(this.Id));
         }
 
         public void AddTask(Task task)
