@@ -13,6 +13,12 @@ namespace Polar.Model
     public class User : INotifyPropertyChanged
     {
 
+<<<<<<< HEAD
+=======
+        [PrimaryKey, AutoIncrement] 
+        public int Id { get; set; }
+
+>>>>>>> parent of ce62694... SQL save and load project
         private string firstName;
 
         public string FirstName 
@@ -69,7 +75,10 @@ namespace Polar.Model
 
         public User()
         {
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of ce62694... SQL save and load project
             Projects = new ObservableCollection<Project>();
             Email = "test";
             Password = "1234";

@@ -10,7 +10,7 @@ namespace Polar
     public partial class App : Application
     {
         public static string DatabaseLocation = string.Empty;
-        public static User user;
+        public static User user = new User();
 
         public App()
         {

@@ -10,8 +10,15 @@ namespace Polar.Model
 {
     public class Project : INotifyPropertyChanged { 
 
+<<<<<<< HEAD
 
     public ObservableCollection<Piece> Pieces { get; set; }
+=======
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
+        public ObservableCollection<Piece> Pieces { get; set; }
+>>>>>>> parent of ce62694... SQL save and load project
 
         //public List<User> User { get; set; }
 
@@ -41,6 +48,10 @@ namespace Polar.Model
             this.Pieces = new ObservableCollection<Piece>();
             if (SholdAddPiece)
             {
+<<<<<<< HEAD
+=======
+                Pieces.Add(new Piece(this.Id));
+>>>>>>> parent of ce62694... SQL save and load project
             }
         }
 
@@ -54,6 +65,10 @@ namespace Polar.Model
 
         public void AddPiece() 
         {
+<<<<<<< HEAD
+=======
+            Pieces.Add(new Piece(this.Id));
+>>>>>>> parent of ce62694... SQL save and load project
         }
 
         public void AddPiece(Piece piece)
