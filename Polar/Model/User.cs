@@ -14,8 +14,7 @@ namespace Polar.Model
     public class User : INotifyPropertyChanged
     {
 
-        [PrimaryKey] 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         private string firstName;
 
@@ -74,8 +73,8 @@ namespace Polar.Model
 
         public User()
         {
-            SQLService SQL = new SQLService();
-            Id = SQL.CountUsers();
+
+            Id = Guid.NewGuid().ToString();
             Projects = new ObservableCollection<Project>();
             Email = "test";
             Password = "1234";

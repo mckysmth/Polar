@@ -4,9 +4,9 @@ namespace Polar.Model
 {
     public class UserProject
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        public int ProjectId { get; set; }
+        public string ProjectId { get; set; }
 
     }
 }

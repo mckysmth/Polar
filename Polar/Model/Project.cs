@@ -12,8 +12,7 @@ namespace Polar.Model
     public class Project : INotifyPropertyChanged
     { 
 
-        [PrimaryKey]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Ignore]
         public ObservableCollection<Piece> Pieces { get; set; }
@@ -36,20 +35,10 @@ namespace Polar.Model
 
         public Project()
         {
-            SQLService SQL = new SQLService();
-            Id = SQL.CountProjects();
+            Id = Guid.NewGuid().ToString();
             Pieces = new ObservableCollection<Piece>();
-        }
-
-        public Project(bool SholdAddPiece)
-        {
-            SQLService SQL = new SQLService();
-            Id = SQL.CountProjects();
-            Pieces = new ObservableCollection<Piece>();
-            if (SholdAddPiece)
-            {
-                Pieces.Add(new Piece(this.Id, SQL.CountPieces()));
-            }
+            Pieces.Add(new Piece(this.Id));
+            
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -62,12 +51,7 @@ namespace Polar.Model
 
         public void AddPiece() 
         {
-            SQLService SQL = new SQLService();
-            int pieceID;
-
-            pieceID = SQL.CountPieces() + Pieces.Count;
-            
-            Pieces.Add(new Piece(this.Id, pieceID));
+            Pieces.Add(new Piece(this.Id));
         }
 
         public void AddPiece(Piece piece)

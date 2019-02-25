@@ -6,10 +6,9 @@ namespace Polar.Model
 {
     public class Task : INotifyPropertyChanged
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
-        public int PieceID { get; set; }
+        public string PieceID { get; set; }
 
         private string taskName;
 
@@ -29,9 +28,9 @@ namespace Polar.Model
         {
         }
 
-        public Task(int id)
+        public Task(string pieceID)
         {
-            PieceID = id;
+            PieceID = pieceID;
         }
 
         private void OnPropertyChanged(string propertyName)
