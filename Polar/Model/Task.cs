@@ -6,9 +6,10 @@ namespace Polar.Model
 {
     public class Task : INotifyPropertyChanged
     {
+        [PrimaryKey]
         public string Id { get; set; }
 
-        public string PieceID { get; set; }
+        public string PieceId { get; set; }
 
         private string taskName;
 
@@ -26,11 +27,13 @@ namespace Polar.Model
 
         public Task()
         {
+            Id = Guid.NewGuid().ToString();
         }
 
-        public Task(string pieceID)
+        public Task(string pieceId)
         {
-            PieceID = pieceID;
+            PieceId = pieceId;
+            Id = Guid.NewGuid().ToString();
         }
 
         private void OnPropertyChanged(string propertyName)

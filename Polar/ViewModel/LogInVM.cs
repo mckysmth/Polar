@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Polar.Services;
 using Polar.Model;
+using Polar.Services;
 using Polar.ViewModel.Commands;
 
 namespace Polar.ViewModel
@@ -42,7 +42,7 @@ namespace Polar.ViewModel
 
         public LogInVM()
         {
-            User = App.user;
+            User = new User();
             LogInToSignUpNavCommand = new LogInToSignUpNavCommand(this);
             LogInCommand = new LogInCommand(this);
         }
@@ -66,11 +66,12 @@ namespace Polar.ViewModel
             SQLService SQL = new SQLService();
 
             User userDB = SQL.GetUserByEmail(User);
+
             if (userDB != null)
             {
                 if (userDB.Password == User.Password)
                 {
-                    App.user = user;
+                    App.user = userDB;
                     await App.Current.MainPage.Navigation.PushAsync(new DoListPage());
                 }
                 else

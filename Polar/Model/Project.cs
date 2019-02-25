@@ -10,17 +10,12 @@ namespace Polar.Model
 {
     public class Project : INotifyPropertyChanged { 
 
-<<<<<<< HEAD
 
-    public ObservableCollection<Piece> Pieces { get; set; }
-=======
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        [PrimaryKey]
+        public string Id { get; set; }
 
+        [Ignore]
         public ObservableCollection<Piece> Pieces { get; set; }
->>>>>>> parent of ce62694... SQL save and load project
-
-        //public List<User> User { get; set; }
 
         private string projectName;
 
@@ -38,21 +33,15 @@ namespace Polar.Model
 
         public Project()
         {
-            this.Pieces = new ObservableCollection<Piece>();
-
+            Id = Guid.NewGuid().ToString();
+            Pieces = new ObservableCollection<Piece>();
         }
 
-        public Project(bool SholdAddPiece)
+        public Project(bool ShouldAddPiece)
         {
-
-            this.Pieces = new ObservableCollection<Piece>();
-            if (SholdAddPiece)
-            {
-<<<<<<< HEAD
-=======
-                Pieces.Add(new Piece(this.Id));
->>>>>>> parent of ce62694... SQL save and load project
-            }
+            Id = Guid.NewGuid().ToString();
+            Pieces = new ObservableCollection<Piece>();
+            Pieces.Add(new Piece(Id));
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -65,10 +54,7 @@ namespace Polar.Model
 
         public void AddPiece() 
         {
-<<<<<<< HEAD
-=======
-            Pieces.Add(new Piece(this.Id));
->>>>>>> parent of ce62694... SQL save and load project
+            Pieces.Add(new Piece(Id));
         }
 
         public void AddPiece(Piece piece)

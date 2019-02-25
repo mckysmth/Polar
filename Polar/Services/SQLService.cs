@@ -58,10 +58,12 @@ namespace Polar.Services
                 List<User> users = connection.Table<User>().ToList();
 
                 User returnUser = users.FirstOrDefault(u => u.Email == user.Email);
-
-                foreach (var project in GetProjectListByUserID(returnUser))
+                if (returnUser != null)
                 {
-                    returnUser.AddProject(project);
+                    foreach (var project in GetProjectListByUserID(returnUser))
+                    {
+                        returnUser.AddProject(project);
+                    }
                 }
 
                 return returnUser;
@@ -84,6 +86,8 @@ namespace Polar.Services
             {
                 UserProject userProject = new UserProject
                 {
+                    ProjectId = project.Id,
+                    UserId = user.Id
                 };
 
                 connection.Insert(userProject);
@@ -96,9 +100,9 @@ namespace Polar.Services
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
+                connection.InsertAll(pieces);
                 foreach (var piece in pieces)
                 {
-                    connection.Insert(piece);
                     InsertAllTasks(piece.Tasks);
                 }
             }
@@ -108,10 +112,7 @@ namespace Polar.Services
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
-                foreach (var task in tasks)
-                {
-                    connection.Insert(task);
-                }
+                connection.InsertAll(tasks);
             }
         }
 
@@ -159,7 +160,7 @@ namespace Polar.Services
 
         private List<Task> GetTaskListByPieceID(Piece piece)
         {
-            List<Task> tasks = connection.Table<Task>().ToList().FindAll(t => t.PieceID == piece.Id);
+            List<Task> tasks = connection.Table<Task>().ToList().FindAll(t => t.PieceId == piece.Id);
 
             return tasks;
         }

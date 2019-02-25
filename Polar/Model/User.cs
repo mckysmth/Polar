@@ -12,13 +12,12 @@ namespace Polar.Model
 
     public class User : INotifyPropertyChanged
     {
+        [PrimaryKey] 
+        public string Id { get; set; }
 
-<<<<<<< HEAD
-=======
-        [PrimaryKey, AutoIncrement] 
-        public int Id { get; set; }
+        [Ignore]
+        public ObservableCollection<Project> Projects { get; set; }
 
->>>>>>> parent of ce62694... SQL save and load project
         private string firstName;
 
         public string FirstName 
@@ -66,19 +65,13 @@ namespace Polar.Model
                 OnPropertyChanged("Password");
             }
         }
-        //, "UserId", "ProjectId"
-        public ObservableCollection<Project> Projects { get; set; }
-    
 
         public event PropertyChangedEventHandler PropertyChanged;
 
 
         public User()
         {
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of ce62694... SQL save and load project
+            Id = Guid.NewGuid().ToString();
             Projects = new ObservableCollection<Project>();
             Email = "test";
             Password = "1234";
@@ -97,20 +90,20 @@ namespace Polar.Model
             Projects.Add(project);
         }
 
-        public ObservableCollection<Piece> GetPieces()
-        {
+        //public ObservableCollection<Piece> GetPieces()
+        //{
 
-            ObservableCollection<Piece> pieceList = new ObservableCollection<Piece>();
+        //    ObservableCollection<Piece> pieceList = new ObservableCollection<Piece>();
 
-            foreach (var project in Projects)
-            {
-                foreach (var piece in project.Pieces)
-                {
-                    pieceList.Add(piece);
-                }
-            }
+        //    foreach (var project in Projects)
+        //    {
+        //        foreach (var piece in project.Pieces)
+        //        {
+        //            pieceList.Add(piece);
+        //        }
+        //    }
 
-            return pieceList;
-        }
+        //    return pieceList;
+        //}
     }
 }

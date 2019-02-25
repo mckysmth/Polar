@@ -54,13 +54,15 @@ namespace Polar.ViewModel
             }
         }
 
-        public void CreateNewProject()
+        public async void CreateNewProject()
         {
             User.AddProject(Project);
 
             SQLService SQL = new SQLService();
 
-            SQL.UpdateUser(User);
+            SQL.InsertNewProject(User, Project);
+            await App.Current.MainPage.Navigation.PopAsync();
+
         }
 
 
