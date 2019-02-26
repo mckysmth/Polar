@@ -29,12 +29,25 @@ namespace Polar.Model
             }
         }
 
+        private bool isComplete;
+
+        public bool IsComplete
+        {
+            get { return isComplete; }
+            set
+            {
+                isComplete = value;
+                OnPropertyChanged("TaskName");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Project()
         {
             Id = Guid.NewGuid().ToString();
             Pieces = new ObservableCollection<Piece>();
+            IsComplete = false;
         }
 
         public Project(bool ShouldAddPiece)
@@ -42,6 +55,7 @@ namespace Polar.Model
             Id = Guid.NewGuid().ToString();
             Pieces = new ObservableCollection<Piece>();
             Pieces.Add(new Piece(Id));
+            IsComplete = false;
         }
 
         private void OnPropertyChanged(string propertyName)

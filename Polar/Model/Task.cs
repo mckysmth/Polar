@@ -23,17 +23,31 @@ namespace Polar.Model
             }
         }
 
+        private bool isComplete;
+
+        public bool IsComplete
+        {
+            get { return isComplete; }
+            set
+            {
+                isComplete = value;
+                OnPropertyChanged("TaskName");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Task()
         {
             Id = Guid.NewGuid().ToString();
+            IsComplete = false;
         }
 
         public Task(string pieceId)
         {
             PieceId = pieceId;
             Id = Guid.NewGuid().ToString();
+            IsComplete = false;
         }
 
         private void OnPropertyChanged(string propertyName)

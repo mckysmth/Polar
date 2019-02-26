@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Polar.Model;
+using Polar.Services;
+using Xamarin.Forms;
 
 namespace Polar.ViewModel
 {
@@ -11,8 +15,9 @@ namespace Polar.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private User user;
+        public ICommand NavigateToNewProjectPage { get; }
 
+        private User user;
 
         public User User
         {
@@ -25,10 +30,12 @@ namespace Polar.ViewModel
         }
         public ObservableCollection<Piece> Backlog { get; set; }
 
+
         public DoListVM()
         {
             User = App.user;
-            Backlog = User.GetPieces();
+            Backlog = User.GetBackLog();
+            NavigateToNewProjectPage = new Command(async () => await ExecuteNavigateToNewProjectPageCommand());
 
         }
 
@@ -40,5 +47,14 @@ namespace Polar.ViewModel
 
             }
         }
+
+        private async System.Threading.Tasks.Task ExecuteNavigateToNewProjectPageCommand()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new NewProjectPage());
+
+        }
+
+
+
     }
 }

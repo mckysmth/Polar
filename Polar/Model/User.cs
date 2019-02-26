@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Polar.Services;
 using SQLite;
 
 namespace Polar.Model
@@ -90,7 +91,7 @@ namespace Polar.Model
             Projects.Add(project);
         }
 
-        public ObservableCollection<Piece> GetPieces()
+        public ObservableCollection<Piece> GetBackLog()
         {
             ObservableCollection<Piece> pieceList = new ObservableCollection<Piece>();
 
@@ -104,5 +105,25 @@ namespace Polar.Model
 
             return pieceList;
         }
+
+        public ObservableCollection<Piece> GetToaysList()
+        {
+            ObservableCollection<Piece> pieceList = new ObservableCollection<Piece>();
+
+            foreach (var project in Projects)
+            {
+                foreach (var piece in project.Pieces)
+                {
+                    if (piece.IsOnDoList)
+                    {
+                        pieceList.Add(piece);
+                    }
+                }
+            }
+
+            return pieceList;
+        }
+
+
     }
 }

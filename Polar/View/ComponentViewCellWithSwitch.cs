@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Polar.View
 {
-    public class ComponentViewCell : ViewCell
+    public class ComponentViewCellWithSwitch : ViewCell
     {
 
 
@@ -13,7 +13,7 @@ namespace Polar.View
 
         bool isVisible;
 
-        public ComponentViewCell()
+        public ComponentViewCellWithSwitch()
         {
             MainLayout = new StackLayout();
             isVisible = false;
@@ -39,6 +39,11 @@ namespace Polar.View
                     Text = piece.getProject().ProjectName
                 };
 
+                Switch switcher = new Switch();
+                switcher.SetBinding(Switch.IsToggledProperty, "IsOnDoList");
+
+
+                MainLayout.Children.Add(switcher);
                 MainLayout.Children.Add(pieceName);
                 MainLayout.Children.Add(projectName);
 
@@ -58,9 +63,7 @@ namespace Polar.View
                     {
                         Text = task.TaskName
                     };
-
-                    //taskName.BindingContext = task;
-
+                    
                     taskLayout.Children.Add(taskName);
                 }
 
@@ -96,9 +99,6 @@ namespace Polar.View
 
 
         }
-
-
-
 
     }
 }

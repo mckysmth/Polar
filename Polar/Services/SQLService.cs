@@ -177,5 +177,14 @@ namespace Polar.Services
                 return project;
             }
         }
+
+        public void UpdatePiece(Piece piece)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.Update(piece);
+            }
+        }
+
     }
 }

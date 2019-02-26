@@ -6,10 +6,20 @@
     
     <StackLayout>
         <StackLayout>
-            <Button x:Name="NewProject" Text="New Project" Clicked="NewProject_Clicked"/>
+            <Button x:Name="NewProject" 
+                    Text="New Project" 
+                    Command="{Binding NavigateToNewProjectPage}"/>
+            
+            <Switch x:Name="PlanDaySwitch" 
+                    Toggled="PlanDaySwitch_Toggled"/>
         </StackLayout>
         
-        <ListView x:Name="backLog" HasUnevenRows="true" IsPullToRefreshEnabled="true">
+
+        
+        <ListView x:Name="backLog"
+                  HasUnevenRows="true" 
+                  SeparatorVisibility="None" 
+                  ItemSelected="ViewPieceDetails_ItemSelected">
         </ListView>
     </StackLayout>
 

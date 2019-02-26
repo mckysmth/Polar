@@ -40,7 +40,21 @@ namespace Polar.Model
             set
             {
                 isOnDoList = value;
+                SQLService SQL = new SQLService();
+                SQL.UpdatePiece(this);
                 OnPropertyChanged("IsOnDoList");
+            }
+        }
+
+        private bool isComplete;
+
+        public bool IsComplete
+        {
+            get { return isComplete; }
+            set
+            {
+                isComplete = value;
+                OnPropertyChanged("TaskName");
             }
         }
 
@@ -48,6 +62,7 @@ namespace Polar.Model
         {
             Id = Guid.NewGuid().ToString();
             Tasks = new ObservableCollection<Task>();
+            IsComplete = false;
         }
 
         public Piece(string projectID)
@@ -55,6 +70,7 @@ namespace Polar.Model
             Id = Guid.NewGuid().ToString();
             ProjectID = projectID;
             Tasks = new ObservableCollection<Task>();
+            IsComplete = false;
         }
 
         private void OnPropertyChanged(string propertyName)
