@@ -69,7 +69,6 @@ namespace Polar.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-
         public User()
         {
             Id = Guid.NewGuid().ToString();
@@ -99,7 +98,10 @@ namespace Polar.Model
             {
                 foreach (var piece in project.Pieces)
                 {
-                    pieceList.Add(piece);
+                    if (!project.IsComplete && !piece.IsComplete)
+                    {
+                        pieceList.Add(piece);
+                    }
                 }
             }
 
@@ -114,7 +116,7 @@ namespace Polar.Model
             {
                 foreach (var piece in project.Pieces)
                 {
-                    if (piece.IsOnDoList)
+                    if (piece.IsOnDoList && !piece.IsComplete && !project.IsComplete)
                     {
                         pieceList.Add(piece);
                     }
@@ -124,6 +126,54 @@ namespace Polar.Model
             return pieceList;
         }
 
+        public bool CheckFinishPiecesByTask(Task task)
+        {
+            Project project = Projects.FirstOrDefault(p => p.Pieces.Contains(p.Pieces.FirstOrDefault(pc => pc.Id == task.PieceId)));
 
+            Piece piece = project.Pieces.FirstOrDefault(pc => pc.Id == task.PieceId);
+
+            bool allTasksComplete = true;
+
+            foreach (var item in piece.Tasks)
+            {
+                if (!item.IsComplete)
+                {
+                    allTasksComplete = false;
+                }
+            }
+
+            if (allTasksComplete)
+            {
+                piece.IsComplete = true;
+                CheckFinishProjectsByPiece(piece);
+                return allTasksComplete;
+            }
+
+            return allTasksComplete;
+
+        }
+
+        public bool CheckFinishProjectsByPiece(Piece piece)
+        {
+            Project project = Projects.FirstOrDefault(p => p.Id == piece.ProjectID);
+
+            bool allTasksComplete = true;
+
+            foreach (var item in project.Pieces)
+            {
+                if (!item.IsComplete)
+                {
+                    allTasksComplete = false;
+                }
+            }
+
+            if (allTasksComplete)
+            {
+                project.IsComplete = true;
+                return allTasksComplete;
+            }
+
+            return allTasksComplete;
+        }
     }
 }

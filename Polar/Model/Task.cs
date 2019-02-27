@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Polar.Services;
 using SQLite;
 
 namespace Polar.Model

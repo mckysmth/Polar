@@ -44,8 +44,10 @@ namespace Polar
         void ViewPieceDetails_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var piece = e.SelectedItem as Piece;
-
-            Navigation.PushAsync(new PieceDetailPage(piece));
+            if (piece != null)
+            {
+                Navigation.PushAsync(new PieceDetailPage(piece));
+            }
         }
 
 
