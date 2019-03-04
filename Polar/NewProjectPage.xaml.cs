@@ -13,29 +13,43 @@ namespace Polar
         {
             InitializeComponent();
 
-            newProjectVM = new NewProjectVM();
+            newProjectVM = new NewProjectVM(this);
             BindingContext = newProjectVM;
+
+            //NavigationPage.SetHasBackButton(this, false);
+
+
+
         }
 
         void addCompButton_Clicked(object sender, System.EventArgs e)
         {
-            StackLayout stackLayout = new StackLayout();
+            StackLayout stackLayoutInner = new StackLayout();
+            StackLayout stackLayoutouter = new StackLayout();
 
+            stackLayoutInner.Orientation = StackOrientation.Horizontal;
 
-            stackLayout.Children.Add(NewCompEntry());
-            stackLayout.Children.Add(NewTaskButton());
+            stackLayoutInner.Children.Add(NewTaskButton());
+            stackLayoutInner.Children.Add(NewCompEntry());
+            stackLayoutouter.Children.Add(stackLayoutInner);
 
-            containerStackLayout.Children.Add(stackLayout);
+            containerStackLayout.Children.Add(stackLayoutouter);
         }
 
         void addTaskButton_Clicked(object sender, System.EventArgs e)
         {
             StackLayout stackLayout = ((StackLayout)((Button)sender).Parent);
-            int compIndexNum = Int32.Parse(stackLayout.Children[0].ClassId);
+            int compIndexNum = Int32.Parse(stackLayout.Children[1].ClassId);
 
+            Entry entry = NewTaskEntry(compIndexNum);
 
+            ((StackLayout)stackLayout.Parent).Children.Add(entry);;
 
-            stackLayout.Children.Add(NewTaskEntry(compIndexNum));
+            //if (entry != null)
+            //{ 
+            //    MainScroller.ScrollToAsync(entry, ScrollToPosition.MakeVisible, true);
+
+            //}
 
         }
 
@@ -50,6 +64,10 @@ namespace Polar
 
             entry.Placeholder = "Task";
 
+            entry.CursorPosition = 0;
+            entry.Style = (Style)Resources["TaskEntry"];
+
+
 
             return entry;
         }
@@ -58,7 +76,9 @@ namespace Polar
         {
             Button button = new Button();
 
-            button.Text = "+ Task";
+            button.Text = "+T";
+
+            button.Style = (Style)Resources["TaskButton"];
 
             button.Clicked += addTaskButton_Clicked;
             return button;
@@ -68,7 +88,7 @@ namespace Polar
         private Entry NewCompEntry()
         {
             Entry entry = new Entry();
-
+            entry.Style = (Style)Resources["ComponentEntry"];
             entry.ClassId = newProjectVM.Project.Pieces.Count.ToString();
 
             entry.SetBinding(Entry.TextProperty, "Project.Pieces[" + newProjectVM.Project.Pieces.Count + "].PieceName", BindingMode.TwoWay);
@@ -76,8 +96,14 @@ namespace Polar
             entry.Placeholder = "Component";
 
             newProjectVM.Project.AddPiece();
-
+            entry.CursorPosition = 0;
             return entry;
+        }
+
+
+        void Handle_Clicked(object sender, System.EventArgs e)
+        {
+            Navigation.PopAsync();
         }
     }
 }

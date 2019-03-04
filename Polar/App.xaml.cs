@@ -11,19 +11,23 @@ namespace Polar
     {
         public static string DatabaseLocation = string.Empty;
         public static User user;
+        public static ResourceDictionary resources;
 
         public App()
         {
             InitializeComponent();
 
             MainPage = new NavigationPage(new LogInPage());
+            //MainPage = new LogInPage();
+            resources = Resources;
+
         }
         public App(String databaseLocation)
         {
             InitializeComponent();
 
             MainPage = new NavigationPage(new LogInPage());
-
+            //MainPage = new LogInPage();
             DatabaseLocation = databaseLocation;
         }
 

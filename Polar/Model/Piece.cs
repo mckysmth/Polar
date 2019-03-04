@@ -40,8 +40,6 @@ namespace Polar.Model
             set
             {
                 isOnDoList = value;
-                SQLService SQL = new SQLService();
-                SQL.UpdatePiece(this);
                 OnPropertyChanged("IsOnDoList");
             }
         }
@@ -91,11 +89,18 @@ namespace Polar.Model
             Tasks.Add(task);
         }
 
-        public Project getProject()
+        public Project GetProject()
         {
-            SQLService SQL = new SQLService();
 
-            return SQL.GetProjectById(ProjectID);
+
+            foreach (var item in App.user.Projects)
+            {
+                if (item.Id == ProjectID)
+                {
+                    return item;
+                }
+            }
+            return null;
 
         }
 

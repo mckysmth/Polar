@@ -61,7 +61,7 @@ namespace Polar.ViewModel
             await App.Current.MainPage.Navigation.PushAsync(new SignUpPage());
         }
 
-        public async void LogIn()
+        public void LogIn()
         {
             SQLService SQL = new SQLService();
 
@@ -72,7 +72,7 @@ namespace Polar.ViewModel
                 if (userDB.Password == User.Password)
                 {
                     App.user = userDB;
-                    await App.Current.MainPage.Navigation.PushAsync(new DoListPage());
+                    App.Current.MainPage = new NavPage();
                 }
                 else
                 {

@@ -19,6 +19,8 @@ namespace Polar.ViewModel
 
         private User user;
 
+        public DoListPage DoListPage { get; set; }
+
         public User User
         {
             get { return user; }
@@ -31,11 +33,12 @@ namespace Polar.ViewModel
         public ObservableCollection<Piece> Backlog { get; set; }
 
 
-        public DoListVM()
+        public DoListVM(DoListPage doListPage)
         {
+            DoListPage = doListPage;
             User = App.user;
             Backlog = User.GetBackLog();
-            NavigateToNewProjectPage = new Command(async () => await ExecuteNavigateToNewProjectPageCommand());
+            NavigateToNewProjectPage = new Command(() => ExecuteNavigateToNewProjectPageCommand());
 
         }
 
@@ -48,9 +51,9 @@ namespace Polar.ViewModel
             }
         }
 
-        private async System.Threading.Tasks.Task ExecuteNavigateToNewProjectPageCommand()
+        private void ExecuteNavigateToNewProjectPageCommand()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new NewProjectPage());
+            DoListPage.Navigation.PushAsync(new NewProjectPage());
 
         }
 

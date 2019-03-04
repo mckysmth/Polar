@@ -14,44 +14,56 @@ namespace Polar
         {
             InitializeComponent();
 
+            BindingContext = piece;
+
 
             foreach (var item in piece.Tasks)
             {
-                Label label = new Label();
-                label.Text = item.TaskName;
+                Label label = new Label
+                {
+                    Text = item.TaskName
+                };
+
                 if (item.IsComplete)
                 {
                     label.TextDecorations = TextDecorations.Strikethrough;
                 }
+
+                Frame frame = new Frame
+                {
+                    Content = label
+                };
+                frame.BindingContext = item;
+
                 var tapGestureRecognizer = new TapGestureRecognizer();
                 tapGestureRecognizer.Tapped += Tapped_handler;
-                label.GestureRecognizers.Add(tapGestureRecognizer);
+                frame.GestureRecognizers.Add(tapGestureRecognizer);
 
-                label.BindingContext = item;
+                frame.Style = (Style)Resources["TaskFrame"];
 
-                stackView.Children.Add(label);
+                stackView.Children.Add(frame);
             }
 
         }
 
         private void Tapped_handler(object sender, EventArgs e)
         {
-            Label label = sender as Label;
+            Frame frame = (Frame)sender;
 
-            Task task = label.BindingContext as Task;
+            Task task = frame.BindingContext as Task;
 
 
             if (task.IsComplete)
             {
                 task.IsComplete = false;
-                label.TextDecorations = TextDecorations.None;
+                ((Label)frame.Content).TextDecorations = TextDecorations.None;
 
 
             }
             else
             {
                 task.IsComplete = true;
-                label.TextDecorations = TextDecorations.Strikethrough;
+                ((Label)frame.Content).TextDecorations = TextDecorations.Strikethrough;
 
             }
 
@@ -59,7 +71,14 @@ namespace Polar
             SQL.UpdateTask(task);
             if (App.user.CheckFinishPiecesByTask(task))
             {
-                Navigation.PopAsync();
+                PieceName.TextDecorations = TextDecorations.Strikethrough;
+                PieceName.TextColor = Color.LightGray;
+            }
+            else
+            {
+                PieceName.TextDecorations = TextDecorations.Underline;
+                PieceName.TextColor = Color.Default;
+
             }
 
 

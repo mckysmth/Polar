@@ -194,5 +194,13 @@ namespace Polar.Services
             }
         }
 
+        public void UpdateProject(Project project)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.Update(project);
+            }
+        }
+
     }
 }

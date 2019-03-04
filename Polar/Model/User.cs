@@ -141,12 +141,24 @@ namespace Polar.Model
                     allTasksComplete = false;
                 }
             }
+            SQLService SQL = new SQLService();
 
             if (allTasksComplete)
             {
                 piece.IsComplete = true;
+                SQL.UpdatePiece(piece);
                 CheckFinishProjectsByPiece(piece);
                 return allTasksComplete;
+            }
+            else
+            {
+                if (piece.IsComplete)
+                {
+                    piece.IsComplete = false;
+                    SQL.UpdatePiece(piece);
+                    CheckFinishProjectsByPiece(piece);
+                }
+
             }
 
             return allTasksComplete;
@@ -167,10 +179,21 @@ namespace Polar.Model
                 }
             }
 
+            SQLService SQL = new SQLService();
+
             if (allTasksComplete)
             {
                 project.IsComplete = true;
+                SQL.UpdateProject(project);
                 return allTasksComplete;
+            }
+            else
+            {
+                if (project.IsComplete)
+                {
+                    project.IsComplete = false;
+                    SQL.UpdateProject(project);
+                }
             }
 
             return allTasksComplete;

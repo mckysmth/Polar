@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.PieceDetailPage">
     
-
+    <ContentPage.Resources>
+        
+        <Style x:Key="TaskFrame" TargetType="Frame">
+            <Setter Property="Margin" Value="8, 2" />
+            <Setter Property="BorderColor" Value="{StaticResource White}" />
+        </Style>
+        
+        <Style x:Key="TaskLabel" TargetType="Label">
+            <Setter Property="TextDecorations" Value="Underline" />
+            <Setter Property="HeightRequest" Value="70" />
+            <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="60" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+        
+    </ContentPage.Resources>
+    
     <ScrollView x:Name="scrollView">
         
-        <StackLayout x:Name="stackView" ></StackLayout>
+        <StackLayout x:Name="stackView" >
+            
+            <Label x:Name="PieceName"
+                   Text="{Binding PieceName}"
+                   Style="{StaticResource TaskLabel}"/>
+            
+        </StackLayout>
         
+       
     </ScrollView>    
 
 </ContentPage>

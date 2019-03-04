@@ -8,17 +8,13 @@ namespace Polar.View
     public class ComponentViewCell : ViewCell
     {
 
-
         public StackLayout MainLayout { get; set; }
-
-        bool isVisible;
 
         public ComponentViewCell()
         {
             MainLayout = new StackLayout();
-            isVisible = false;
-
         }
+
 
         protected override void OnBindingContextChanged()
         {
@@ -29,44 +25,49 @@ namespace Polar.View
             {
                 Piece piece = (Piece)BindingContext;
 
-                Label pieceName = new Label
+
+                StackLayout subLayout = new StackLayout
                 {
-                    Text = piece.PieceName
+                    HorizontalOptions = LayoutOptions.FillAndExpand
                 };
 
-                Label projectName = new Label
-                {
-                    Text = piece.getProject().ProjectName
+                StackLayout horizontalLayout = new StackLayout 
+                { 
+                    Orientation = StackOrientation.Horizontal,
                 };
 
-                MainLayout.Children.Add(pieceName);
-                MainLayout.Children.Add(projectName);
 
-                Button button = new Button
+                StackLayout taskLayout = new StackLayout
                 {
-                    Text = "V"
+                    IsVisible = false,
                 };
-                button.Clicked += Button_Clicked;
 
-                MainLayout.Children.Add(button);
+                subLayout.Children.Add(PieceNameLable(piece));
 
-                StackLayout taskLayout = new StackLayout();
+                subLayout.Children.Add(ProjectNameLable(piece));
+
+                horizontalLayout.Children.Add(subLayout);
+                horizontalLayout.Children.Add(DropDownButton());
+
 
                 foreach (var task in piece.Tasks)
                 {
-                    Label taskName = new Label
-                    {
-                        Text = task.TaskName
-                    };
-
-                    //taskName.BindingContext = task;
-
-                    taskLayout.Children.Add(taskName);
+                    taskLayout.Children.Add(TaskNameLabel(task));
                 }
 
-                taskLayout.IsVisible = isVisible;
+
+                MainLayout.Children.Add(horizontalLayout);
 
                 MainLayout.Children.Add(taskLayout);
+
+                BoxView boxView = new BoxView
+                {
+                    BackgroundColor = Color.Black,
+                    HeightRequest = 1,
+                    HorizontalOptions = LayoutOptions.FillAndExpand
+                };
+
+                MainLayout.Children.Add(boxView);
 
 
                 View = MainLayout;
@@ -81,24 +82,77 @@ namespace Polar.View
 
             Button button = (Button)sender;
 
-            StackLayout stackLayout = (StackLayout)button.Parent;
-            if (stackLayout.Children[stackLayout.Children.Count - 1].IsVisible)
+            StackLayout stackLayout = (StackLayout)button.Parent.Parent;
+            if (stackLayout.Children[stackLayout.Children.Count - 2].IsVisible)
             {
-                stackLayout.Children[stackLayout.Children.Count - 1].IsVisible = false;
-                button.Rotation = 0;
+                stackLayout.Children[stackLayout.Children.Count - 2].IsVisible = false;
+                button.Text = "V";
             }
             else
             {
-                stackLayout.Children[stackLayout.Children.Count - 1].IsVisible = true;
-                button.Rotation = -90;
+                stackLayout.Children[stackLayout.Children.Count - 2].IsVisible = true;
+                button.Text = "-";
             }
-
-
 
         }
 
+        private Xamarin.Forms.View PieceNameLable(Piece piece)
+        {
+            Label pieceName = new Label
+            {
+                Text = piece.PieceName,
+                Margin = new Thickness(5, 5, 0, 0)
+            };
+
+            return pieceName;
+        }
+
+        private Xamarin.Forms.View ProjectNameLable(Piece piece)
+        {
+            Label projectName = new Label
+            {
+                Text = piece.GetProject().ProjectName,
+                FontSize = 12,
+                TextColor = (Color)App.Current.Resources["Gray"],
+                Margin = new Thickness(5, 0, 0, 0)
+
+            };
+
+            return projectName;
+        }
+
+        private Xamarin.Forms.View DropDownButton()
+        {
+            Button button = new Button
+            {
+                Text = "V",
+                BackgroundColor = Color.Default,
+                TextColor = Color.Black,
+                Padding = new Thickness(0)
+            };
+            button.Clicked += Button_Clicked;
+
+            return button;
+        }
 
 
+        private Xamarin.Forms.View TaskNameLabel(Task task)
+        {
+            Label taskName = new Label
+            {
+                Text = task.TaskName,
+                Margin = new Thickness(20, 0, 0, 0),
+                FontSize = 15,
+
+            };
+
+            if (task.IsComplete)
+            {
+                taskName.TextDecorations = TextDecorations.Strikethrough;
+            }
+
+            return taskName;
+        }
 
     }
 }

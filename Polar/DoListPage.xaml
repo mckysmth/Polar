@@ -2,26 +2,76 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Polar.DoListPage">
-
     
-    <StackLayout>
-        <StackLayout>
-            <Button x:Name="NewProject" 
-                    Text="New Project" 
-                    Command="{Binding NavigateToNewProjectPage}"/>
+    <ContentPage.Resources>
+        
+<!--        <Color x:Key="testColor">Lime</Color>
+-->        
+        <!-- Implicit styles -->
+
+        <Style TargetType="Switch"
+               ApplyToDerivedTypes="True">
+            <Setter Property="OnColor" Value="{StaticResource Orange}" />
+        </Style>
+        
+        <Style TargetType="ListView">
+            <Setter Property="HasUnevenRows" Value="True" />
+            <Setter Property="SeparatorVisibility" Value="None" />
             
-            <Switch x:Name="PlanDaySwitch" 
-                    Toggled="PlanDaySwitch_Toggled"/>
-        </StackLayout>
+        </Style>
+        
+        <Style x:Key="CircleButton" TargetType="Button">
+            <Setter Property="WidthRequest" Value="60" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="BorderRadius" Value="30" />
+            <Setter Property="FontSize" Value="30" />
+            
+        </Style>
+        
+        
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem x:Name="MenuItem"
+                     Text="Plan Day"
+                     Clicked="PlanDaySwitch_Toggled"/>   
+        
+    </ContentPage.ToolbarItems>
+
+ 
+        <RelativeLayout>
+            <ListView x:Name="backLog"
+                      ItemSelected="ViewPieceDetails_ItemSelected">
+            </ListView>
         
 
-        
-        <ListView x:Name="backLog"
-                  HasUnevenRows="true" 
-                  SeparatorVisibility="None" 
-                  ItemSelected="ViewPieceDetails_ItemSelected">
-        </ListView>
-    </StackLayout>
+            <Button x:Name="NewProject"
+                    Style="{StaticResource CircleButton}"
+                    Text="+"
+                    Command="{Binding NavigateToNewProjectPage}"
+                    RelativeLayout.XConstraint =
+                        "{ConstraintExpression Type=RelativeToParent,
+                                               Property=Width,
+                                               Factor=1,
+                                               Constant=-88}"
+                    RelativeLayout.YConstraint =
+                        "{ConstraintExpression Type=RelativeToParent,
+                                                Property=Height,
+                                                Factor=1,
+                                                Constant=-88}"/>  
+        </RelativeLayout>
+
+<!--        <StackLayout>
+
+                <Button x:Name="NewProject"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        BorderRadius="20"
+                        Text="+"
+                        Command="{Binding NavigateToNewProjectPage}"/>              
+            
+        </StackLayout>-->
 
     
 

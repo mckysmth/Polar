@@ -12,6 +12,8 @@ namespace Polar.ViewModel
 
         private User user;
 
+        public NewProjectPage NewProjectPage { get; set; }
+
         public User User
         {
             get { return user; }
@@ -36,8 +38,9 @@ namespace Polar.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public NewProjectVM()
+        public NewProjectVM(NewProjectPage newProjectPage)
         {
+            NewProjectPage = newProjectPage;
             User = App.user;
 
             Project = new Project(true);
@@ -54,14 +57,14 @@ namespace Polar.ViewModel
             }
         }
 
-        public async void CreateNewProject()
+        public void CreateNewProject()
         {
             User.AddProject(Project);
 
             SQLService SQL = new SQLService();
 
             SQL.InsertNewProject(User, Project);
-            await App.Current.MainPage.Navigation.PopAsync();
+            NewProjectPage.Navigation.PopAsync();
 
         }
 

@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.LogInPage">
     
+    
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+
+        <Style TargetType="Frame">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="20, 6" />
+        </Style>
+        
+        <Style x:Key="SignUpButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Default" />
+            <Setter Property="TextColor" Value="{StaticResource Orange}" />
+        </Style>
+
+
+    </ContentPage.Resources>
+    
     <StackLayout x:Name="containerStackLayout" VerticalOptions="Center">
         
         <Label x:Name="errorMessage" 
                TextColor="Red"
                Text="{Binding ErrorMessage}"/>
         
-        <Entry x:Name="Email"
-               Keyboard="Email"
-               Text="{Binding User.Email, Mode=TwoWay}"
-               Placeholder="Email"/>
+        <Frame>
+            <Entry x:Name="Email"
+                   Keyboard="Email"
+                   Text="{Binding User.Email, Mode=TwoWay}"
+                   Placeholder="Email"/>
+        </Frame>
         
-        <Entry x:Name="Password"
-               Placeholder="Password"
-               Text="{Binding User.Password, Mode=TwoWay}"
-               IsPassword="true"/>
+        <Frame>
+            <Entry x:Name="Password"
+                   Placeholder="Password"
+                   Text="{Binding User.Password, Mode=TwoWay}"
+                   IsPassword="true"/>
+        </Frame>
         
-        <Button x:Name="logInButton"
-                Text="Log In"
-                Command="{Binding LogInCommand}"/>
+        <Frame>
+        
+            <Button x:Name="logInButton"
+                    Text="Log In"
+                    Command="{Binding LogInCommand}"/>
+        </Frame>
+        
         
         <Button x:Name="signUpButton"
-                Text="Sign Up"
+                Style="{StaticResource SignUpButton}"
+                Text="Sign Up!"
                 Command="{Binding LogInToSignUpNavCommand}"/>
         
     </StackLayout>

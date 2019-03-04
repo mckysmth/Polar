@@ -1,33 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.NewProjectPage">
-    <StackLayout x:Name="containerStackLayout">
-        <StackLayout>
-            <Button x:Name="addCompButton"
-                Text="+ Comp"
-                Clicked="addCompButton_Clicked"/>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Polar.NewProjectPage"
+             NavigationPage.BackButtonTitle="X">
+    <ContentPage.Resources>
+        
+        <Style x:Key="ComponentEntry" TargetType="Entry">
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+        
+        <Style x:Key="TaskEntry" TargetType="Entry">
+            <Setter Property="Margin" Value="42, 0, 0, 0" />
+        </Style>
+        
+        <Style x:Key="TaskButton" TargetType="Button">
+            <Setter Property="WidthRequest" Value="37" />
+            <Setter Property="HeightRequest" Value="37" />
+        </Style>
+        
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+    
+<!--        <ToolbarItem x:Name="CancelProject"
+                     Text="X"
+                     Clicked="Handle_Clicked"/>   -->
+        
+        <ToolbarItem x:Name="MenuItem"
+                     Text="Save"
+                     Command="{Binding CreateNewProjectCommand}"/>   
+        
+    </ContentPage.ToolbarItems>
+    
+    
+    
+    <ScrollView x:Name="MainScroller">
+       
+            <StackLayout x:Name="containerStackLayout" Margin="7">
+                <FlexLayout Direction="Row" JustifyContent="SpaceBetween">
+                    <Label Text="My next project is..." 
+                           FlexLayout.AlignSelf="End"
+                           FontSize="30"/>
+                    <Button x:Name="addCompButton"
+                            Text="Component"
+                            Clicked="addCompButton_Clicked"
+                            WidthRequest="130"/>
+                </FlexLayout>
+            
                 
+                <Entry Placeholder="Project Name"
+                       CursorPosition="0"
+                       Text="{Binding Project.ProjectName, Mode=TwoWay}"/>
+            
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Button x:Name="addTaskButton"
+                                Style="{StaticResource TaskButton}"
+                                Text="+T"
+                                Clicked="addTaskButton_Clicked"/>
+                        <Entry Placeholder="Component"
+                               Style="{StaticResource ComponentEntry}"
+                               ClassId="0"
+                               Text="{Binding Project.Pieces[0].PieceName , Mode=TwoWay}"
+                               Keyboard="Text"/>
+                    
 
-            <Button Text="Done"
-                Command="{Binding CreateNewProjectCommand}"/>
-        </StackLayout>
-
-            <Entry Placeholder="Project Name"
-                Text="{Binding Project.ProjectName, Mode=TwoWay}"/>
-                
-            <StackLayout>
-            
-                <Entry Placeholder="Component"
-                       ClassId="0"
-                       Text="{Binding Project.Pieces[0].PieceName , Mode=TwoWay}"/>
-            
-                <Button x:Name="addTaskButton"
-                        Text="+ Task"
-                        Clicked="addTaskButton_Clicked"/>
-            
+                    
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
             
+            
 
 
-               
-    </StackLayout>
+
+    </ScrollView>
+    
+    
 </ContentPage>

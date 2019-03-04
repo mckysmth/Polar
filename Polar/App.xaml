@@ -1,5 +1,54 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.App">
+<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Polar.App">
     <Application.Resources>
+    
+        <!-- Colors -->
+        <Color x:Key="Black">#131e23</Color>
+        <Color x:Key="Gray">#474848</Color>
+        <Color x:Key="White">#f2f3f4</Color>
+        <Color x:Key="Orange">#f3722d</Color>
+        <Color x:Key="DarkOrange">#c1571f</Color>
+        
+
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type NavigationPage}">
+            <Setter Property="BarBackgroundColor"
+                    Value="{StaticResource White}" />
+             <Setter Property="BarTextColor"
+                    Value="{StaticResource Black}" />           
+        </Style>
+
+        <Style TargetType="{x:Type ContentPage}"
+               ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource White}" />
+                
+
+        </Style>
+        
+        <Style TargetType="Label">
+            <Setter Property="FontSize"
+                    Value="20" />
+            <Setter Property="Margin"
+                    Value="5"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="FontSize"
+                    Value="20" />
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource Orange}"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource White}"/>
+        
+        </Style>
+        
+        <Style TargetType="Entry">
+            <Setter Property="FontSize"
+                    Value="30" />
+        </Style>
+
     </Application.Resources>
 </Application>

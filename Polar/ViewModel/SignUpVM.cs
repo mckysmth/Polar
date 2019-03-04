@@ -75,7 +75,7 @@ namespace Polar.ViewModel
                 {
                     SQL.InsertNewUser(User);
 
-                    App.Current.MainPage.Navigation.PushAsync(new DoListPage());
+                    App.Current.MainPage = new NavPage();
                 }
                 else
                 {
