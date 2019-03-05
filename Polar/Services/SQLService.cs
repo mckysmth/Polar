@@ -40,7 +40,7 @@ namespace Polar.Services
             }
         }
 
-        internal void DeleteProject(Project project)
+        public void DeleteProject(Project project)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
@@ -77,11 +77,29 @@ namespace Polar.Services
             }
         }
 
+        public void DeletePiece(Piece piece)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.Delete(piece);
+
+            }
+        }
+
         public void UpdateUser(User user)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
                 connection.Update(user);
+
+            }
+        }
+
+        public void DeleteTask(Task task)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.Delete(task);
 
             }
         }

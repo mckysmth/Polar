@@ -203,5 +203,16 @@ namespace Polar.Model
         {
             Projects.Remove(project);
         }
+
+        public Project GetProjectByPiece(Piece piece)
+        {
+            return Projects.FirstOrDefault(p => p.Id == piece.ProjectID);
+        }
+        public Piece GetPieceByTask(Task task)
+        {
+            Project project = Projects.FirstOrDefault(p => p.Pieces.Contains(p.Pieces.FirstOrDefault(pc => pc.Id == task.PieceId)));
+
+            return project.Pieces.FirstOrDefault(pc => pc.Id == task.PieceId);
+        }
     }
 }

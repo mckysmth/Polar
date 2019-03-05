@@ -4,27 +4,72 @@
              x:Class="Polar.ProjectListPage"
              x:Name="YourView">
     
+    
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ProjectTemplate">
+                <ViewCell>
+                    <Label Text="{Binding ProjectName}"/>
+                    
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="Delete"
+                                  Command="{Binding Path=BindingContext.DeleteProject, Source={x:Reference YourView}}"
+                                  IsDestructive="true"
+                                  CommandParameter="{Binding .}"/>
+                    </ViewCell.ContextActions>
+                    
+                </ViewCell>
+            </DataTemplate>
+            
+            <DataTemplate x:Key="PieceTemplate">
+                <ViewCell>
+                    <Label Text="{Binding PieceName}"/>
+                    
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="Delete"
+                                  Command="{Binding Path=BindingContext.DeleteProject, Source={x:Reference YourView}}"
+                                  IsDestructive="true"
+                                  CommandParameter="{Binding .}"/>
+                    </ViewCell.ContextActions>
+                    
+                </ViewCell>
+            </DataTemplate>
+            
+            <DataTemplate x:Key="TaskTemplate">
+                <ViewCell>
+                    <Label Text="{Binding TaskName}"/>
+                    
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="Delete"
+                                  Command="{Binding Path=BindingContext.DeleteProject, Source={x:Reference YourView}}"
+                                  IsDestructive="true"
+                                  CommandParameter="{Binding .}"/>
+                    </ViewCell.ContextActions>
+                    
+                </ViewCell>
+            </DataTemplate>
+        
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    
 <StackLayout>
+        <Label x:Name="pageTitle"
+               FontSize="40"
+               FontAttributes="Bold"
+               TextDecorations="Underline"
+               HorizontalTextAlignment="Center"/>
+        
         <ListView x:Name="listView" 
-                  ItemsSource="{Binding User.Projects}"
-                  ItemTapped="ListView_ItemTapped">
+                  ItemSelected="ListView_ItemTapped">
 
             
             <ListView.ItemTemplate>
                 
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding ProjectName}"
-                                   Margin="30, 5, 0, 0"/>
-                        </StackLayout>
-                        
-                        <ViewCell.ContextActions>
-                            <MenuItem Text="Delete"
-                                      Command="{Binding Path=BindingContext.DeleteProject, Source={x:Reference YourView}}"
-                                      IsDestructive="true"
-                                      CommandParameter="{Binding .}"/>
-                        </ViewCell.ContextActions>
+
                         
                     </ViewCell>
                 </DataTemplate>

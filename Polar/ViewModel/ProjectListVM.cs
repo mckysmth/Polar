@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using Polar.Model;
 using Polar.Services;
@@ -38,11 +39,23 @@ namespace Polar.ViewModel
 
         private void ExecuteDeleteProject(object obj)
         {
-            Project project = (Project)obj;
-            User.DeletProject(project);
-
             SQLService SQL = new SQLService();
-            SQL.DeleteProject(project);
+            if (obj is Project project)
+            {
+                User.DeletProject(project);
+                SQL.DeleteProject(project);
+            } 
+            else if (obj is Piece piece)
+            {
+                User.GetProjectByPiece(piece).RemovePiece(piece);
+            }
+            else if (obj is Task task)
+            {
+                User.GetPieceByTask(task).DeleteTask(task);
+            }
+
+
+
         }
 
         private void OnPropertyChanged(string propertyName)

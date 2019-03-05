@@ -13,7 +13,7 @@ namespace Polar
         
         DoListVM doListVm;
 
-        DataTemplate customCell = new DataTemplate(typeof(ComponentDetailViewCell));
+        DataTemplate customCell = new DataTemplate(typeof(ComponentViewCell));
         DataTemplate customCellWithSwitch = new DataTemplate(typeof(ComponentViewCellWithSwitch));
         public DoListPage()
         {

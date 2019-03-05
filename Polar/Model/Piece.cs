@@ -104,6 +104,13 @@ namespace Polar.Model
 
         }
 
+        public void DeleteTask(Task task)
+        {
+            Tasks.Remove(task);
+            SQLService SQL = new SQLService();
+            SQL.DeleteTask(task);
+        }
+
 
     }
 }

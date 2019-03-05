@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using SQLite;
 using System.Collections.Generic;
+using Polar.Services;
 
 namespace Polar.Model
 {
@@ -74,6 +75,13 @@ namespace Polar.Model
         public void AddPiece(Piece piece)
         {
             Pieces.Add(piece);
+        }
+
+        public void RemovePiece(Piece piece)
+        {
+            Pieces.Remove(piece);
+            SQLService SQL = new SQLService();
+            SQL.DeletePiece(piece);
         }
     }
 }
