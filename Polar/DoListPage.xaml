@@ -40,38 +40,71 @@
     </ContentPage.ToolbarItems>
 
  
-        <RelativeLayout>
+        <Grid x:Name="grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
             <ListView x:Name="backLog"
-                      ItemSelected="ViewPieceDetails_ItemSelected">
+                      ItemSelected="ViewPieceDetails_ItemSelected"
+                      Grid.Row="0"
+                      Grid.Column="0">
             </ListView>
         
-
+        
+<!--                    Style="{StaticResource CircleButton}"-->
             <Button x:Name="NewProject"
-                    Style="{StaticResource CircleButton}"
                     Text="+"
                     Command="{Binding NavigateToNewProjectPage}"
-                    RelativeLayout.XConstraint =
-                        "{ConstraintExpression Type=RelativeToParent,
-                                               Property=Width,
-                                               Factor=1,
-                                               Constant=-88}"
-                    RelativeLayout.YConstraint =
-                        "{ConstraintExpression Type=RelativeToParent,
-                                                Property=Height,
-                                                Factor=1,
-                                                Constant=-88}"/>  
-        </RelativeLayout>
+                    Grid.Row="21"
+                    Grid.Column="13"
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="2"/>  
+        </Grid>
 
-<!--        <StackLayout>
 
-                <Button x:Name="NewProject"
-                        WidthRequest="40"
-                        HeightRequest="40"
-                        BorderRadius="20"
-                        Text="+"
-                        Command="{Binding NavigateToNewProjectPage}"/>              
-            
-        </StackLayout>-->
 
     
 

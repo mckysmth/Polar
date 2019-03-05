@@ -199,7 +199,7 @@ namespace Polar.Model
             return allTasksComplete;
         }
 
-        public void DeletProject(Project project)
+        public void DeleteProject(Project project)
         {
             Projects.Remove(project);
         }

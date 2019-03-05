@@ -2,20 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Polar.ProjectListPage"
-             x:Name="YourView">
+             x:Name="YourView"
+             xmlns:converters="clr-namespace:Polar.ViewModel.Converters">
     
     
     
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converters:BooleanToStringStatus x:Key="booleanToStringStatus" />
+
             <DataTemplate x:Key="ProjectTemplate">
                 <ViewCell>
-                    <Label Text="{Binding ProjectName}"/>
-                    
+                    <StackLayout>
+                        <Label Text="{Binding ProjectName}"/>
+                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" />
+                    </StackLayout>
                     <ViewCell.ContextActions>
                         <MenuItem Text="Delete"
                                   Command="{Binding Path=BindingContext.DeleteProject, Source={x:Reference YourView}}"
                                   IsDestructive="true"
+                                  CommandParameter="{Binding .}"/>
+                        
+                        <MenuItem Text="Reuse"
+                                  Command="{Binding Path=BindingContext.ReuseProject, Source={x:Reference YourView}}"
                                   CommandParameter="{Binding .}"/>
                     </ViewCell.ContextActions>
                     
@@ -24,7 +33,10 @@
             
             <DataTemplate x:Key="PieceTemplate">
                 <ViewCell>
-                    <Label Text="{Binding PieceName}"/>
+                    <StackLayout>
+                        <Label Text="{Binding PieceName}"/>
+                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" />
+                    </StackLayout>
                     
                     <ViewCell.ContextActions>
                         <MenuItem Text="Delete"
@@ -38,7 +50,10 @@
             
             <DataTemplate x:Key="TaskTemplate">
                 <ViewCell>
-                    <Label Text="{Binding TaskName}"/>
+                    <StackLayout>
+                        <Label Text="{Binding TaskName}"/>
+                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" />
+                    </StackLayout>
                     
                     <ViewCell.ContextActions>
                         <MenuItem Text="Delete"
@@ -54,7 +69,7 @@
     </ContentPage.Resources>
     
     
-<StackLayout>
+<StackLayout x:Name="layout">
         <Label x:Name="pageTitle"
                FontSize="40"
                FontAttributes="Bold"
@@ -62,17 +77,12 @@
                HorizontalTextAlignment="Center"/>
         
         <ListView x:Name="listView" 
-                  ItemSelected="ListView_ItemTapped">
+                  ItemSelected="ListView_ItemTapped" 
+                  HasUnevenRows="true">
 
             
             <ListView.ItemTemplate>
-                
-                <DataTemplate>
-                    <ViewCell>
-
-                        
-                    </ViewCell>
-                </DataTemplate>
+               
             </ListView.ItemTemplate>
         </ListView>
     </StackLayout>

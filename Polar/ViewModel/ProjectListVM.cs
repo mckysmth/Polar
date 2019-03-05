@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using Polar.Model;
 using Polar.Services;
+using Polar.ViewModel.Converters;
 using Xamarin.Forms;
 
 namespace Polar.ViewModel
@@ -14,10 +15,12 @@ namespace Polar.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand DeleteProject { get; }
+        public ICommand ReuseProject { get; }
 
         private User user;
 
         public ProjectListPage DoListPage { get; set; }
+
 
         public User User
         {
@@ -34,7 +37,15 @@ namespace Polar.ViewModel
             DoListPage = projectListPage;
             User = App.user;
             DeleteProject = new Command(ExecuteDeleteProject);
+            ReuseProject = new Command(ExecuteReuseProject);
+        }
 
+        private void ExecuteReuseProject(object obj)
+        {
+            if (obj is Project project)
+            {
+                project.Reuse();
+            }
         }
 
         private void ExecuteDeleteProject(object obj)
@@ -42,7 +53,7 @@ namespace Polar.ViewModel
             SQLService SQL = new SQLService();
             if (obj is Project project)
             {
-                User.DeletProject(project);
+                User.DeleteProject(project);
                 SQL.DeleteProject(project);
             } 
             else if (obj is Piece piece)

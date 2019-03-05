@@ -19,6 +19,7 @@
     <Folder Include="ViewModel\" />
     <Folder Include="ViewModel\Commands\" />
     <Folder Include="View\" />
+    <Folder Include="ViewModel\Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MainPage.xaml.cs" />

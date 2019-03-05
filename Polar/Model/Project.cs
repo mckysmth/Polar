@@ -83,5 +83,23 @@ namespace Polar.Model
             SQLService SQL = new SQLService();
             SQL.DeletePiece(piece);
         }
+
+
+        public void Reuse()
+        {
+            IsComplete = false;
+
+            foreach (var piece in Pieces)
+            {
+                piece.IsComplete = false;
+                piece.IsOnDoList = false;
+
+                foreach (var task in piece.Tasks)
+                {
+                    task.IsComplete = false;
+                }
+            }
+        }
+
     }
 }

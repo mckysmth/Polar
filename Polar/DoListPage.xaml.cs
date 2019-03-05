@@ -24,8 +24,8 @@ namespace Polar
 
             backLog.ItemTemplate = customCell;
             backLog.ItemsSource = doListVm.TodaysList;
-
-
+            Grid.SetRowSpan(backLog, grid.RowDefinitions.Count);
+            Grid.SetColumnSpan(backLog, grid.ColumnDefinitions.Count);
 
 
         }
