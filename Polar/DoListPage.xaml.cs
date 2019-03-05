@@ -13,7 +13,7 @@ namespace Polar
         
         DoListVM doListVm;
 
-        DataTemplate customCell = new DataTemplate(typeof(ComponentViewCell));
+        DataTemplate customCell = new DataTemplate(typeof(ComponentDetailViewCell));
         DataTemplate customCellWithSwitch = new DataTemplate(typeof(ComponentViewCellWithSwitch));
         public DoListPage()
         {
@@ -22,9 +22,8 @@ namespace Polar
 
             BindingContext = doListVm;
 
-
             backLog.ItemTemplate = customCell;
-            backLog.ItemsSource = doListVm.User.GetToaysList();
+            backLog.ItemsSource = doListVm.TodaysList;
 
 
 
@@ -35,10 +34,9 @@ namespace Polar
         {
             base.OnDisappearing();
 
-            base.OnAppearing();
             backLog.ItemTemplate = customCell;
 
-            backLog.ItemsSource = doListVm.User.GetToaysList();
+            backLog.ItemsSource = doListVm.TodaysList;
 
             MenuItem.Text = "Plan Day";
             backLog.SelectedItem = null;
@@ -48,7 +46,9 @@ namespace Polar
         {
             base.OnAppearing();
 
-            backLog.ItemsSource = doListVm.User.GetToaysList();
+            doListVm.UpdateTodaysList();
+            doListVm.UpdateBackLog();
+
         }
 
         void ViewPieceDetails_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -66,17 +66,19 @@ namespace Polar
             if (MenuItem.Text == "Plan Day" )
             {
                 backLog.ItemTemplate = customCellWithSwitch;
-                backLog.ItemsSource = doListVm.User.GetBackLog();
+                backLog.ItemsSource = doListVm.Backlog;
                 backLog.SelectionMode = ListViewSelectionMode.None;
                 MenuItem.Text = "Do It!";
             }
             else
             {
+                doListVm.UpdateTodaysList();
                 backLog.ItemTemplate = customCell;
-                backLog.ItemsSource = doListVm.User.GetToaysList();
+                backLog.ItemsSource = doListVm.TodaysList;
                 backLog.SelectionMode = ListViewSelectionMode.Single;
                 MenuItem.Text = "Plan Day";
             }
+
         }
     }
 }

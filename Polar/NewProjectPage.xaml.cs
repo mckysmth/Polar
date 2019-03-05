@@ -16,9 +16,6 @@ namespace Polar
             newProjectVM = new NewProjectVM(this);
             BindingContext = newProjectVM;
 
-            //NavigationPage.SetHasBackButton(this, false);
-
-
 
         }
 
@@ -44,12 +41,6 @@ namespace Polar
             Entry entry = NewTaskEntry(compIndexNum);
 
             ((StackLayout)stackLayout.Parent).Children.Add(entry);;
-
-            //if (entry != null)
-            //{ 
-            //    MainScroller.ScrollToAsync(entry, ScrollToPosition.MakeVisible, true);
-
-            //}
 
         }
 
@@ -100,10 +91,5 @@ namespace Polar
             return entry;
         }
 
-
-        void Handle_Clicked(object sender, System.EventArgs e)
-        {
-            Navigation.PopAsync();
-        }
     }
 }

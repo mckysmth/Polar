@@ -40,6 +40,13 @@ namespace Polar.Services
             }
         }
 
+        internal void DeleteProject(Project project)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.Delete(project);
+            }
+        }
 
         public List<User> GetUserList(User user)
         {
@@ -74,7 +81,6 @@ namespace Polar.Services
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {
-                App.user = user;
                 connection.Update(user);
 
             }

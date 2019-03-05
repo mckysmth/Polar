@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Polar.Model;
-using Polar.Services;
 using Xamarin.Forms;
 
 namespace Polar.View
 {
-    public class ComponentViewCellWithSwitch : ViewCell
+    public class ComponentDetailViewCell : ViewCell
     {
-
 
         public StackLayout MainLayout { get; set; }
 
-        public ComponentViewCellWithSwitch()
+        public ComponentDetailViewCell()
         {
             MainLayout = new StackLayout();
         }
@@ -27,18 +25,14 @@ namespace Polar.View
             {
                 Piece piece = (Piece)BindingContext;
 
-                if (piece.IsOnDoList)
-                {
-                    MainLayout.BackgroundColor = Color.LightGray;
-                }
 
                 StackLayout subLayout = new StackLayout
                 {
                     HorizontalOptions = LayoutOptions.FillAndExpand
                 };
 
-                StackLayout horizontalLayout = new StackLayout
-                {
+                StackLayout horizontalLayout = new StackLayout 
+                { 
                     Orientation = StackOrientation.Horizontal,
                 };
 
@@ -52,7 +46,6 @@ namespace Polar.View
 
                 subLayout.Children.Add(ProjectNameLable(piece));
 
-                horizontalLayout.Children.Add(ToggleButton());
                 horizontalLayout.Children.Add(subLayout);
                 horizontalLayout.Children.Add(DropDownButton());
 
@@ -108,7 +101,7 @@ namespace Polar.View
             Label pieceName = new Label
             {
                 Text = piece.PieceName,
-                Margin = new Thickness(0, 5, 0, 0)
+                Margin = new Thickness(5, 5, 0, 0)
             };
 
             return pieceName;
@@ -121,7 +114,7 @@ namespace Polar.View
                 Text = piece.GetProject().ProjectName,
                 FontSize = 12,
                 TextColor = (Color)App.Current.Resources["Gray"],
-                Margin = new Thickness(0)
+                Margin = new Thickness(5, 0, 0, 0)
 
             };
 
@@ -153,57 +146,8 @@ namespace Polar.View
 
             };
 
-            if (task.IsComplete)
-            {
-                taskName.TextDecorations = TextDecorations.Strikethrough;
-            }
-
             return taskName;
         }
 
-        private Xamarin.Forms.View ToggleButton()
-        {
-            Piece piece = (Piece)BindingContext;
-
-            Button button = new Button
-            {
-                Text = "Do!",
-                BackgroundColor = Color.LightGray,
-                TextColor = Color.Black,
-                Padding = new Thickness(3),
-                Margin = new Thickness(5, 5, 0, 0),
-                VerticalOptions = LayoutOptions.Center,
-            };
-            button.Clicked += Toggle_Clicked;
-
-            if (piece.IsOnDoList)
-            {
-                button.BorderWidth = 1;
-            }
-
-            return button;
-        }
-
-        private void Toggle_Clicked(object sender, EventArgs e)
-        {
-            Button button = (Button)sender;
-            Piece piece = (Piece)BindingContext;
-
-            if (piece.IsOnDoList)
-            {
-                piece.IsOnDoList = false;
-                MainLayout.BackgroundColor = Color.Default;
-                button.BorderWidth = 0;
-            }
-            else
-            {
-                piece.IsOnDoList = true;
-                MainLayout.BackgroundColor = Color.LightGray;
-                button.BorderWidth = 1;
-            }
-
-            SQLService SQL = new SQLService();
-            SQL.UpdatePiece(piece);
-        }
     }
 }

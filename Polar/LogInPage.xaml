@@ -18,7 +18,8 @@
 
     </ContentPage.Resources>
     
-    <StackLayout x:Name="containerStackLayout" VerticalOptions="Center">
+    <StackLayout x:Name="containerStackLayout" 
+                 VerticalOptions="Center">
         
         <Label x:Name="errorMessage" 
                TextColor="Red"

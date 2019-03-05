@@ -21,60 +21,55 @@
     </ContentPage.Resources>
     
     <ContentPage.ToolbarItems>
-    
-<!--        <ToolbarItem x:Name="CancelProject"
-                     Text="X"
-                     Clicked="Handle_Clicked"/>   -->
+   
         
         <ToolbarItem x:Name="MenuItem"
                      Text="Save"
                      Command="{Binding CreateNewProjectCommand}"/>   
         
     </ContentPage.ToolbarItems>
+    <StackLayout>
+        <FlexLayout Direction="Row" JustifyContent="SpaceBetween">
+                        <Label Text="My next project is..." 
+                               FlexLayout.AlignSelf="End"
+                               FontSize="30"/>
+                        <Button x:Name="addCompButton"
+                                Text="Component"
+                                Clicked="addCompButton_Clicked"
+                                WidthRequest="130"/>
+        </FlexLayout>
     
-    
-    
-    <ScrollView x:Name="MainScroller">
-       
-            <StackLayout x:Name="containerStackLayout" Margin="7">
-                <FlexLayout Direction="Row" JustifyContent="SpaceBetween">
-                    <Label Text="My next project is..." 
-                           FlexLayout.AlignSelf="End"
-                           FontSize="30"/>
-                    <Button x:Name="addCompButton"
-                            Text="Component"
-                            Clicked="addCompButton_Clicked"
-                            WidthRequest="130"/>
-                </FlexLayout>
-            
+        <ScrollView x:Name="MainScroller">
+           
+                <StackLayout x:Name="containerStackLayout" Margin="7">
                 
-                <Entry Placeholder="Project Name"
-                       CursorPosition="0"
-                       Text="{Binding Project.ProjectName, Mode=TwoWay}"/>
-            
-                <StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Button x:Name="addTaskButton"
-                                Style="{StaticResource TaskButton}"
-                                Text="+T"
-                                Clicked="addTaskButton_Clicked"/>
-                        <Entry Placeholder="Component"
-                               Style="{StaticResource ComponentEntry}"
-                               ClassId="0"
-                               Text="{Binding Project.Pieces[0].PieceName , Mode=TwoWay}"
-                               Keyboard="Text"/>
-                    
+                    <Entry Placeholder="Project Name"
+                           CursorPosition="0"
+                           Text="{Binding Project.ProjectName, Mode=TwoWay}"/>
+                
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Button x:Name="addTaskButton"
+                                    Style="{StaticResource TaskButton}"
+                                    Text="+T"
+                                    Clicked="addTaskButton_Clicked"/>
+                            <Entry Placeholder="Component"
+                                   Style="{StaticResource ComponentEntry}"
+                                   ClassId="0"
+                                   Text="{Binding Project.Pieces[0].PieceName , Mode=TwoWay}"
+                                   Keyboard="Text"/>
+                        
 
-                    
+                        
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
-            </StackLayout>
-            
-            
+                
+                
 
 
 
-    </ScrollView>
-    
+        </ScrollView>
+    </StackLayout>
     
 </ContentPage>

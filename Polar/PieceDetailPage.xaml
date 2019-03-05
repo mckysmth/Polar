@@ -27,7 +27,7 @@
             <Label x:Name="PieceName"
                    Text="{Binding PieceName}"
                    Style="{StaticResource TaskLabel}"/>
-            
+          
         </StackLayout>
         
        

@@ -11,21 +11,24 @@
         <ListView x:Name="listView" x:FieldModifier="public">
            <ListView.ItemsSource>
                 <x:Array Type="{x:Type local:MasterPageItem}">
-                    <local:MasterPageItem Title="Add Project" 
-                                          TargetType="{x:Type local:NewProjectPage}" />
+                    <local:MasterPageItem Title="Today's List" 
+                                          TargetType="{x:Type local:DoListPage}" />
+                    
+                    <local:MasterPageItem Title="Projects" 
+                                          TargetType="{x:Type local:ProjectListPage}" />
+                    
                 </x:Array>
             </ListView.ItemsSource>
             
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="5,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1" Text="{Binding Title}" />
-                        </Grid>
+                        
+                        <StackLayout>
+                            <Label Text="{Binding Title}"
+                                   Margin="30, 5, 0, 0"/>
+                        </StackLayout>
+                        
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

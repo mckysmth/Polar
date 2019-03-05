@@ -31,15 +31,61 @@ namespace Polar.ViewModel
             }
         }
         public ObservableCollection<Piece> Backlog { get; set; }
-
+        public ObservableCollection<Piece> TodaysList { get; set; }
 
         public DoListVM(DoListPage doListPage)
         {
             DoListPage = doListPage;
             User = App.user;
             Backlog = User.GetBackLog();
+            TodaysList = User.GetToaysList();
             NavigateToNewProjectPage = new Command(() => ExecuteNavigateToNewProjectPageCommand());
 
+        }
+
+        public void UpdateBackLog()
+        {
+            foreach (var item in User.GetBackLog())
+            {
+                if (!Backlog.Contains(item))
+                {
+                    Backlog.Add(item);
+                }
+            }
+
+            for (int i = 0; i < Backlog.Count; i++)
+            {
+                if (Backlog[i].IsComplete)
+                {
+                    Backlog.Remove(Backlog[i]);
+                }
+            }
+        }
+
+        public void UpdateTodaysList()
+        {
+            foreach (var item in Backlog)
+            {
+                if (item.IsOnDoList)
+                {
+                    if (!TodaysList.Contains(item))
+                    {
+                        TodaysList.Add(item);
+                    }
+                }
+                else
+                {
+                    TodaysList.Remove(item);
+                }
+            }
+
+            for (int i = 0; i < TodaysList.Count; i++)
+            {
+                    if (TodaysList[i].IsComplete)
+                    {
+                        TodaysList.Remove(TodaysList[i]);
+                    }
+            }
         }
 
         private void OnPropertyChanged(string propertyName)

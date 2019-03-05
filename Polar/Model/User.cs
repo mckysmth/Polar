@@ -198,5 +198,10 @@ namespace Polar.Model
 
             return allTasksComplete;
         }
+
+        public void DeletProject(Project project)
+        {
+            Projects.Remove(project);
+        }
     }
 }
