@@ -14,8 +14,11 @@
             <DataTemplate x:Key="ProjectTemplate">
                 <ViewCell>
                     <StackLayout>
-                        <Label Text="{Binding ProjectName}"/>
-                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" />
+                        <Label Text="{Binding ProjectName}"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" 
+                               TextColor="Silver"
+                               FontSize="12"/>
                     </StackLayout>
                     <ViewCell.ContextActions>
                         <MenuItem Text="Delete"
@@ -34,8 +37,11 @@
             <DataTemplate x:Key="PieceTemplate">
                 <ViewCell>
                     <StackLayout>
-                        <Label Text="{Binding PieceName}"/>
-                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" />
+                        <Label Text="{Binding PieceName}"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" 
+                               TextColor="Silver"
+                               FontSize="12"/>
                     </StackLayout>
                     
                     <ViewCell.ContextActions>
@@ -51,8 +57,11 @@
             <DataTemplate x:Key="TaskTemplate">
                 <ViewCell>
                     <StackLayout>
-                        <Label Text="{Binding TaskName}"/>
-                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" />
+                        <Label Text="{Binding TaskName}"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" 
+                               TextColor="Silver"
+                               FontSize="12"/>
                     </StackLayout>
                     
                     <ViewCell.ContextActions>
@@ -69,22 +78,88 @@
     </ContentPage.Resources>
     
     
-<StackLayout x:Name="layout">
+<!--<StackLayout>-->
+        
+        <Grid x:Name="grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
         <Label x:Name="pageTitle"
                FontSize="40"
                FontAttributes="Bold"
                TextDecorations="Underline"
-               HorizontalTextAlignment="Center"/>
+               HorizontalTextAlignment="Center"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.RowSpan="3"/>
         
         <ListView x:Name="listView" 
                   ItemSelected="ListView_ItemTapped" 
-                  HasUnevenRows="true">
+                  HasUnevenRows="true"
+                  Grid.Row="3"
+                  Grid.Column="0">
 
             
             <ListView.ItemTemplate>
                
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
+        
+        
+            <Button x:Name="NewProject"
+                    Text="+"
+                    Clicked="Handle_Clicked"
+                    Grid.Row="21"
+                    Grid.Column="13"
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="2"/>  
+        </Grid>
+        
+<!--    </StackLayout>-->
+    
+    
     
 </ContentPage>

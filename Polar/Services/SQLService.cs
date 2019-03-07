@@ -120,6 +120,14 @@ namespace Polar.Services
             }
         }
 
+        public void InsertNewProject(Piece item)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.Insert(item);
+            }
+        }
+
         private void InsertAllPieces(ObservableCollection<Piece> pieces)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
