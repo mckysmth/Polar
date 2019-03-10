@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.AddEventPage">
+    
+    
+    <StackLayout x:Name="MainLayout">
+        <Entry x:Name="EventName" Placeholder="Event Title"/>
+        
+        <DatePicker x:Name="Datepicker"/>
+        
+        <TimePicker x:Name="Timepicker"/>
+        
+        <StackLayout>
+            <Label Text="Does Repeat"/>
+            <Switch x:Name="IsReoccuring"/>
+        </StackLayout>
+        
+        <Button Text="Done" Clicked="Handle_Clicked"/>
+        
+        
+    </StackLayout>
+    
+</ContentPage>

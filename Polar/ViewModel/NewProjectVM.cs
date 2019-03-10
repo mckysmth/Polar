@@ -59,6 +59,7 @@ namespace Polar.ViewModel
 
         public void CreateNewProject()
         {
+            Project.Clean();
             User.AddProject(Project);
 
             SQLService SQL = new SQLService();

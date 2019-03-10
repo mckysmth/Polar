@@ -67,12 +67,6 @@ namespace Polar
         }
 
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-
-        }
 
         void ListView_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
@@ -86,6 +80,18 @@ namespace Polar
 
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            listView.SelectedItem = null;
+            if (listView.BindingContext is ProjectListVM)
+            {
+                BindingContext = null;
+                BindingContext = projectListVM;
+
+            }
+      
+        }
 
         void Handle_Clicked(object sender, System.EventArgs e)
         {

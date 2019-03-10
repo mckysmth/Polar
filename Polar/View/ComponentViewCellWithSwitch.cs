@@ -116,16 +116,29 @@ namespace Polar.View
 
         private Xamarin.Forms.View ProjectNameLable(Piece piece)
         {
-            Label projectName = new Label
+            Project project = piece.GetProject();
+            string projectName;
+
+            if (project != null)
             {
-                Text = piece.GetProject().ProjectName,
+                projectName = project.ProjectName;
+            }
+            else
+            {
+                projectName = piece.DateTime.ToLongTimeString();
+
+            }
+
+            Label projectNameLable = new Label
+            {
+                Text = projectName,
                 FontSize = 12,
                 TextColor = (Color)App.Current.Resources["Gray"],
                 Margin = new Thickness(0)
 
             };
 
-            return projectName;
+            return projectNameLable;
         }
 
         private Xamarin.Forms.View DropDownButton()

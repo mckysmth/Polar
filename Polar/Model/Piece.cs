@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Polar.Services;
 using SQLite;
 
 namespace Polar.Model
@@ -19,7 +18,30 @@ namespace Polar.Model
         public ObservableCollection<Task> Tasks { get; private set; }
 
         public string ProjectID { get; set; }
+        public string UserID { get; set; }
 
+        private DateTime dateTime;
+
+        public DateTime DateTime
+        {
+            get { return dateTime; }
+            set
+            {
+                dateTime = value;
+                OnPropertyChanged("DateTime");
+            }
+        }
+
+        private bool isRepeating;
+        public bool IsRepeating
+        {
+            get { return isRepeating; }
+            set
+            {
+                isRepeating = value;
+                OnPropertyChanged("IsRepeating");
+            }
+        }
         private string pieceName;
 
         public string PieceName
@@ -71,6 +93,16 @@ namespace Polar.Model
             IsComplete = false;
         }
 
+        public Piece(string userID, DateTime dateTime, bool isRepeating) 
+        {
+            Id = Guid.NewGuid().ToString();
+            UserID = userID;
+            DateTime = dateTime;
+            IsRepeating = isRepeating;
+            Tasks = new ObservableCollection<Task>();
+            IsComplete = false;
+        }
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -107,8 +139,6 @@ namespace Polar.Model
         public void DeleteTask(Task task)
         {
             Tasks.Remove(task);
-            SQLService SQL = new SQLService();
-            SQL.DeleteTask(task);
         }
 
 

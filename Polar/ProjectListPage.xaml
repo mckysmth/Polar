@@ -16,7 +16,7 @@
                     <StackLayout>
                         <Label Text="{Binding ProjectName}"
                                FontAttributes="Bold"/>
-                        <Label Text="{Binding IsComplete,Converter={StaticResource booleanToStringStatus} }" 
+                        <Label Text="{Binding IsComplete, Converter={StaticResource booleanToStringStatus} }" 
                                TextColor="Silver"
                                FontSize="12"/>
                     </StackLayout>

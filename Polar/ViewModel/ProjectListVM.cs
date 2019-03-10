@@ -19,7 +19,7 @@ namespace Polar.ViewModel
 
         private User user;
 
-        public ProjectListPage DoListPage { get; set; }
+        public ProjectListPage ProjectListPage { get; set; }
 
 
         public User User
@@ -34,7 +34,7 @@ namespace Polar.ViewModel
 
         public ProjectListVM(ProjectListPage projectListPage)
         {
-            DoListPage = projectListPage;
+            ProjectListPage = projectListPage;
             User = App.user;
             DeleteProject = new Command(ExecuteDeleteProject);
             ReuseProject = new Command(ExecuteReuseProject);
@@ -45,6 +45,19 @@ namespace Polar.ViewModel
             if (obj is Project project)
             {
                 project.Reuse();
+
+                SQLService SQL = new SQLService();
+                SQL.UpdateProject(project);
+
+                foreach (var piece in project.Pieces)
+                {
+                    SQL.UpdatePiece(piece);
+                    foreach (var task in piece.Tasks)
+                    {
+                        SQL.UpdateTask(task);
+                    }
+                }
+                App.Current.MainPage = new NavPage();
             }
         }
 
@@ -58,11 +71,13 @@ namespace Polar.ViewModel
             } 
             else if (obj is Piece piece)
             {
-                User.GetProjectByPiece(piece).RemovePiece(piece);
+                User.GetProjectByPiece(piece).DeletePiece(piece);
+                SQL.DeletePiece(piece);
             }
             else if (obj is Task task)
             {
                 User.GetPieceByTask(task).DeleteTask(task);
+                SQL.DeleteTask(task);
             }
 
 

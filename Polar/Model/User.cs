@@ -19,6 +19,9 @@ namespace Polar.Model
         [Ignore]
         public ObservableCollection<Project> Projects { get; set; }
 
+        [Ignore]
+        public ObservableCollection<Piece> EventPieces { get; set; }
+
         private string firstName;
 
         public string FirstName 
@@ -75,6 +78,7 @@ namespace Polar.Model
             Projects = new ObservableCollection<Project>();
             Email = "test";
             Password = "1234";
+            EventPieces = new ObservableCollection<Piece>();
         }
 
         private void OnPropertyChanged(string propertyName)
@@ -83,6 +87,21 @@ namespace Polar.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public void AddEvent(Piece piece)
+        {
+            Task task = new Task()
+            {
+                TaskName = "Done",
+                PieceId = piece.Id
+            };
+
+            piece.AddTask(task);
+
+            EventPieces.Add(piece);
+            SQLService SQL = new SQLService();
+            SQL.InsertNewTask(task);
         }
 
         public void AddProject(Project project) 
@@ -123,6 +142,14 @@ namespace Polar.Model
                 }
             }
 
+            foreach (var pc in EventPieces)
+            {
+                if (pc.DateTime.DayOfYear == DateTime.Now.DayOfYear)
+                {
+                    pieceList.Add(pc);
+                }
+            }
+
             return pieceList;
         }
 
@@ -139,15 +166,19 @@ namespace Polar.Model
                 if (!item.IsComplete)
                 {
                     allTasksComplete = false;
+
                 }
             }
             SQLService SQL = new SQLService();
 
             if (allTasksComplete)
             {
-                piece.IsComplete = true;
-                SQL.UpdatePiece(piece);
-                CheckFinishProjectsByPiece(piece);
+                if (!piece.IsComplete)
+                {
+                    piece.IsComplete = true;
+                    CheckFinishProjectsByPiece(piece);
+                    SQL.UpdatePiece(piece);
+                }
                 return allTasksComplete;
             }
             else
@@ -158,7 +189,6 @@ namespace Polar.Model
                     SQL.UpdatePiece(piece);
                     CheckFinishProjectsByPiece(piece);
                 }
-
             }
 
             return allTasksComplete;
@@ -183,8 +213,11 @@ namespace Polar.Model
 
             if (allTasksComplete)
             {
-                project.IsComplete = true;
-                SQL.UpdateProject(project);
+                if (!project.IsComplete)
+                {
+                    project.IsComplete = true;
+                    SQL.UpdateProject(project);
+                }
                 return allTasksComplete;
             }
             else

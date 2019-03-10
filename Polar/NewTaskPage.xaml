@@ -1,5 +1,26 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.NewTaskPage">
-    <ContentPage.Content>
-    </ContentPage.Content>
+
+     <ContentPage.ToolbarItems>
+   
+        
+        <ToolbarItem x:Name="MenuItem"
+                     Text="Save"
+                     Clicked="Handle_Clicked_1"/>   
+        
+    </ContentPage.ToolbarItems>
+    
+    <StackLayout>
+        <Button x:Name="TaskButton"
+                Text="Task"
+                Clicked="Handle_Clicked"/>
+        <ScrollView x:Name="mainScroller">
+            <StackLayout x:Name="mainLayout">
+                <Entry Placeholder="Task"
+                       Text="{Binding [0].TaskName}"/>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+    
+    
 </ContentPage>

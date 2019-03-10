@@ -17,6 +17,9 @@
                     <local:MasterPageItem Title="Projects" 
                                           TargetType="{x:Type local:ProjectListPage}" />
                     
+                    <local:MasterPageItem Title="Add Event" 
+                                          TargetType="{x:Type local:AddEventPage}" />
+                    
                 </x:Array>
             </ListView.ItemsSource>
             

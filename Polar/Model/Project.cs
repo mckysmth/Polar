@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using SQLite;
-using System.Collections.Generic;
-using Polar.Services;
 
 namespace Polar.Model
 {
@@ -67,6 +65,21 @@ namespace Polar.Model
             }
         }
 
+        public void Clean()
+        {
+            foreach (var piece in Pieces)
+            {
+                if (piece.Tasks.Count < 1)
+                {
+                    Task task = new Task(piece.Id)
+                    {
+                        TaskName = "Done"
+                    };
+                    piece.AddTask(task);
+                }
+            }
+        }
+
         public void AddPiece() 
         {
             Pieces.Add(new Piece(Id));
@@ -77,11 +90,10 @@ namespace Polar.Model
             Pieces.Add(piece);
         }
 
-        public void RemovePiece(Piece piece)
+        public void DeletePiece(Piece piece)
         {
             Pieces.Remove(piece);
-            SQLService SQL = new SQLService();
-            SQL.DeletePiece(piece);
+
         }
 
 

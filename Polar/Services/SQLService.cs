@@ -48,6 +48,14 @@ namespace Polar.Services
             }
         }
 
+        public void InsertNewTask(Task item)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.Insert(item);
+            }
+        }
+
         public List<User> GetUserList(User user)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
@@ -73,7 +81,41 @@ namespace Polar.Services
                     }
                 }
 
+                foreach (var eventPc in GetAllEventPiecesByUser(returnUser))
+                {
+                    returnUser.EventPieces.Add(eventPc);
+                }
+
                 return returnUser;
+            }
+        }
+
+        private List<Piece> GetAllEventPiecesByUser(User returnUser)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                List<Piece> pieces = connection.Table<Piece>().ToList().FindAll(p => p.UserID == returnUser.Id);
+
+                foreach (var piece in pieces)
+                {
+                    foreach (var task in GetTaskListByPieceID(piece))
+                    {
+                        piece.AddTask(task);
+                    }
+                }
+
+
+
+                return pieces;
+            }
+        }
+
+        public void InsertEventProject(Project project)
+        {
+            using (connection = new SQLiteConnection(App.DatabaseLocation))
+            {
+                connection.Insert(project);
+
             }
         }
 
@@ -120,7 +162,7 @@ namespace Polar.Services
             }
         }
 
-        public void InsertNewProject(Piece item)
+        public void InsertNewPiece(Piece item)
         {
             using (connection = new SQLiteConnection(App.DatabaseLocation))
             {

@@ -108,12 +108,23 @@ namespace Polar
         {
             SQLService SQL = new SQLService();
 
-            foreach (var item in Pieces)
+            foreach (var piece in Pieces)
             {
-                item.ProjectID = Project.Id;
-                Project.AddPiece(item);
-                SQL.InsertNewProject(item);
+                if (piece.Tasks.Count < 1)
+                {
+                    Task task = new Task(piece.Id)
+                    {
+                        TaskName = "Done"
+                    };
+                    piece.AddTask(task);
+                    SQL.InsertNewTask(task);
+
+                }
+                piece.ProjectID = Project.Id;
+                Project.AddPiece(piece);
+                SQL.InsertNewPiece(piece);
             }
+
             Navigation.PopAsync();
         }
     }
