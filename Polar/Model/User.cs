@@ -144,7 +144,7 @@ namespace Polar.Model
 
             foreach (var pc in EventPieces)
             {
-                if (pc.DateTime.DayOfYear == DateTime.Now.DayOfYear)
+                if (pc.DateTime.DayOfYear == DateTime.Now.DayOfYear && !pc.IsComplete)
                 {
                     pieceList.Add(pc);
                 }
@@ -155,9 +155,16 @@ namespace Polar.Model
 
         public bool CheckFinishPiecesByTask(Task task)
         {
-            Project project = Projects.FirstOrDefault(p => p.Pieces.Contains(p.Pieces.FirstOrDefault(pc => pc.Id == task.PieceId)));
+            Piece piece = EventPieces.FirstOrDefault(pc => pc.Id == task.PieceId);
 
-            Piece piece = project.Pieces.FirstOrDefault(pc => pc.Id == task.PieceId);
+            if (piece == null)
+            {
+                Project project = Projects.FirstOrDefault(p => p.Pieces.Contains(p.Pieces.FirstOrDefault(pc => pc.Id == task.PieceId)));
+
+                piece = project.Pieces.FirstOrDefault(pc => pc.Id == task.PieceId);
+            }
+
+
 
             bool allTasksComplete = true;
 
@@ -176,8 +183,18 @@ namespace Polar.Model
                 if (!piece.IsComplete)
                 {
                     piece.IsComplete = true;
-                    CheckFinishProjectsByPiece(piece);
+
+                    if (piece.IsRepeating)
+                    {
+                        piece.DateTime = piece.DateTime.AddMonths(1);
+                    }
+                    else if (piece.ProjectID != null)
+                    {
+                        CheckFinishProjectsByPiece(piece);
+                    }
                     SQL.UpdatePiece(piece);
+
+
                 }
                 return allTasksComplete;
             }
@@ -186,8 +203,16 @@ namespace Polar.Model
                 if (piece.IsComplete)
                 {
                     piece.IsComplete = false;
+
+                    if (piece.IsRepeating)
+                    {
+                        piece.DateTime = piece.DateTime.AddMonths(-1);
+                    }
+                    else
+                    {
+                        CheckFinishProjectsByPiece(piece);
+                    }
                     SQL.UpdatePiece(piece);
-                    CheckFinishProjectsByPiece(piece);
                 }
             }
 

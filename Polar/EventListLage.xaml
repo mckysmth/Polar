@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Polar.EventListLage">
+    
+    <ListView x:Name="EventsList" 
+              ItemsSource="{Binding EventPieces}"
+              HasUnevenRows="true">
+        <ListView.ItemTemplate>
+            
+            <DataTemplate x:Key="ProjectTemplate">
+                <ViewCell>
+                    <StackLayout>
+                        <Label Text="{Binding PieceName}"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding DateTime }" 
+                               TextColor="Silver"
+                               FontSize="12"/>
+                    </StackLayout>
+                    <!--<ViewCell.ContextActions>
+                        <MenuItem Text="Delete"
+                                  Command="{Binding Path=BindingContext.DeleteProject, Source={x:Reference YourView}}"
+                                  IsDestructive="true"
+                                  CommandParameter="{Binding .}"/>
+                        
+                        <MenuItem Text="Reuse"
+                                  Command="{Binding Path=BindingContext.ReuseProject, Source={x:Reference YourView}}"
+                                  CommandParameter="{Binding .}"/>
+                    </ViewCell.ContextActions>-->
+                    
+                </ViewCell>
+            </DataTemplate>
+            
+        </ListView.ItemTemplate>
+        
+    </ListView>
+    
+</ContentPage>

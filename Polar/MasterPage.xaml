@@ -20,6 +20,9 @@
                     <local:MasterPageItem Title="Add Event" 
                                           TargetType="{x:Type local:AddEventPage}" />
                     
+                    <local:MasterPageItem Title="Events" 
+                                          TargetType="{x:Type local:EventListLage}" />
+                    
                 </x:Array>
             </ListView.ItemsSource>
             

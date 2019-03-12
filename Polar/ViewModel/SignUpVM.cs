@@ -65,22 +65,22 @@ namespace Polar.ViewModel
         }
 
 
-        public void NavigateToLading()
+        public async void NavigateToLading()
         {
-            SQLService SQL = new SQLService();
+            AzureService azure = new AzureService();
 
             if (User.Password == ConfirmationPassword)
             {
-                if (SQL.GetUserByEmail(User) == null)
-                {
-                    SQL.InsertNewUser(User);
+                //if (azure.GetUserByEmail(User) == null)
+                //{
+                    await azure.InsertNewUser(User);
 
-                    App.Current.MainPage = new NavPage();
-                }
-                else
-                {
-                    ErrorMessage = "Account already Exists.";
-                }
+                    //App.Current.MainPage = new NavPage();
+                //}
+                //else
+                //{
+                //    ErrorMessage = "Account already Exists.";
+                //}
             }
             else
             {
