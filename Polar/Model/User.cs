@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Polar.Services;
 using SQLite;
 
@@ -17,9 +18,11 @@ namespace Polar.Model
         public string Id { get; set; }
 
         [Ignore]
+        [JsonIgnore]
         public ObservableCollection<Project> Projects { get; set; }
 
         [Ignore]
+        [JsonIgnore]
         public ObservableCollection<Piece> EventPieces { get; set; }
 
         private string firstName;
@@ -89,7 +92,7 @@ namespace Polar.Model
             }
         }
 
-        public void AddEvent(Piece piece)
+        public async System.Threading.Tasks.Task AddEventAsync(Piece piece)
         {
             Task task = new Task()
             {
@@ -100,8 +103,8 @@ namespace Polar.Model
             piece.AddTask(task);
 
             EventPieces.Add(piece);
-            SQLService SQL = new SQLService();
-            SQL.InsertNewTask(task);
+            //SQLService SQL = new SQLService();
+            await AzureService.InsertNewTask(task);
         }
 
         public void AddProject(Project project) 
@@ -153,7 +156,7 @@ namespace Polar.Model
             return pieceList;
         }
 
-        public bool CheckFinishPiecesByTask(Task task)
+        public async Task<bool> CheckFinishPiecesByTaskAsync(Task task)
         {
             Piece piece = EventPieces.FirstOrDefault(pc => pc.Id == task.PieceId);
 
@@ -176,7 +179,7 @@ namespace Polar.Model
 
                 }
             }
-            SQLService SQL = new SQLService();
+            //SQLService SQL = new SQLService();
 
             if (allTasksComplete)
             {
@@ -190,9 +193,9 @@ namespace Polar.Model
                     }
                     else if (piece.ProjectID != null)
                     {
-                        CheckFinishProjectsByPiece(piece);
+                        CheckFinishProjectsByPieceAsync(piece);
                     }
-                    SQL.UpdatePiece(piece);
+                    await AzureService.UpdatePiece(piece);
 
 
                 }
@@ -210,9 +213,9 @@ namespace Polar.Model
                     }
                     else
                     {
-                        CheckFinishProjectsByPiece(piece);
+                        CheckFinishProjectsByPieceAsync(piece);
                     }
-                    SQL.UpdatePiece(piece);
+                    await AzureService.UpdatePiece(piece);
                 }
             }
 
@@ -220,7 +223,7 @@ namespace Polar.Model
 
         }
 
-        public bool CheckFinishProjectsByPiece(Piece piece)
+        public async Task<bool> CheckFinishProjectsByPieceAsync(Piece piece)
         {
             Project project = Projects.FirstOrDefault(p => p.Id == piece.ProjectID);
 
@@ -234,14 +237,14 @@ namespace Polar.Model
                 }
             }
 
-            SQLService SQL = new SQLService();
+            //SQLService SQL = new SQLService();
 
             if (allTasksComplete)
             {
                 if (!project.IsComplete)
                 {
                     project.IsComplete = true;
-                    SQL.UpdateProject(project);
+                    await AzureService.UpdateProject(project);
                 }
                 return allTasksComplete;
             }
@@ -250,7 +253,7 @@ namespace Polar.Model
                 if (project.IsComplete)
                 {
                     project.IsComplete = false;
-                    SQL.UpdateProject(project);
+                    await AzureService.UpdateProject(project);
                 }
             }
 

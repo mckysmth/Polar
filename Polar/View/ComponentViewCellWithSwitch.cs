@@ -187,7 +187,7 @@ namespace Polar.View
                 Margin = new Thickness(5, 5, 0, 0),
                 VerticalOptions = LayoutOptions.Center,
             };
-            button.Clicked += Toggle_Clicked;
+            button.Clicked += Toggle_ClickedAsync;
 
             if (piece.IsOnDoList)
             {
@@ -197,7 +197,7 @@ namespace Polar.View
             return button;
         }
 
-        private void Toggle_Clicked(object sender, EventArgs e)
+        private async void Toggle_ClickedAsync(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             Piece piece = (Piece)BindingContext;
@@ -215,8 +215,8 @@ namespace Polar.View
                 button.BorderWidth = 1;
             }
 
-            SQLService SQL = new SQLService();
-            SQL.UpdatePiece(piece);
+            //SQLService SQL = new SQLService();
+            await AzureService.UpdatePiece(piece);
         }
     }
 }

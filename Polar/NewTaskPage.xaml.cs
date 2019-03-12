@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Polar.Model;
 using Polar.Services;
 using Xamarin.Forms;
@@ -8,14 +9,14 @@ namespace Polar
 {
     public partial class NewTaskPage : ContentPage
     {
-        List<Task> Tasks;
+        ObservableCollection<Task> Tasks;
         Piece Piece;
         public NewTaskPage(Piece piece)
         {
             InitializeComponent();
 
             Piece = piece;
-            Tasks = new List<Task>
+            Tasks = new ObservableCollection<Task>
             {
                 new Task()
             };
@@ -44,17 +45,19 @@ namespace Polar
             return entry;
         }
 
-        void Handle_Clicked_1(object sender, System.EventArgs e)
+        async void Handle_Clicked_1(object sender, System.EventArgs e)
         {
-            SQLService SQL = new SQLService();
+            //SQLService SQL = new SQLService();
 
             foreach (var item in Tasks)
             {
                 item.PieceId = Piece.Id;
                 Piece.AddTask(item);
-                SQL.InsertNewTask(item);
             }
-            Navigation.PopAsync();
+
+            await AzureService.InsertAllTasks(Tasks);
+
+            await Navigation.PopAsync();
         }
     }
 }

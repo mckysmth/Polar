@@ -15,7 +15,7 @@ namespace Polar
             User = App.user;
         }
 
-        void Handle_Clicked(object sender, System.EventArgs e)
+        async void Handle_Clicked(object sender, System.EventArgs e)
         {
 
 
@@ -28,9 +28,9 @@ namespace Polar
             };
 
 
-            User.AddEvent(piece);
-            SQLService SQL = new SQLService();
-            SQL.InsertNewPiece(piece);
+            await User.AddEventAsync(piece);
+            //SQLService SQL = new SQLService();
+            await AzureService.InsertNewPiece(piece);
 
             App.Current.MainPage = new NavPage();
 

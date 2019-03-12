@@ -36,7 +36,7 @@ namespace Polar
                 frame.BindingContext = item;
 
                 var tapGestureRecognizer = new TapGestureRecognizer();
-                tapGestureRecognizer.Tapped += Tapped_handler;
+                tapGestureRecognizer.Tapped += Tapped_handlerAsync;
                 frame.GestureRecognizers.Add(tapGestureRecognizer);
 
                 frame.Style = (Style)Resources["TaskFrame"];
@@ -46,7 +46,7 @@ namespace Polar
 
         }
 
-        private void Tapped_handler(object sender, EventArgs e)
+        private async void Tapped_handlerAsync(object sender, EventArgs e)
         {
             Frame frame = (Frame)sender;
 
@@ -67,9 +67,9 @@ namespace Polar
 
             }
 
-            SQLService SQL = new SQLService();
-            SQL.UpdateTask(task);
-            if (App.user.CheckFinishPiecesByTask(task))
+            //SQLService SQL = new SQLService();
+            await AzureService.UpdateTask(task);
+            if (await App.user.CheckFinishPiecesByTaskAsync(task))
             {
                 PieceName.TextDecorations = TextDecorations.Strikethrough;
                 PieceName.TextColor = Color.LightGray;

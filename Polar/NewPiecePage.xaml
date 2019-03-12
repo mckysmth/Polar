@@ -23,7 +23,7 @@
         
         <ToolbarItem x:Name="MenuItem"
                      Text="Save"
-                     Clicked="Handle_Clicked_1"/>   
+                     Clicked="Handle_Clicked_1Async"/>   
         
     </ContentPage.ToolbarItems>
     

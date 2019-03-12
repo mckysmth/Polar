@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Newtonsoft.Json;
 using SQLite;
 
 namespace Polar.Model
@@ -15,9 +16,11 @@ namespace Polar.Model
         public string Id { get; set; }
 
         [Ignore]
+        [JsonIgnore]
         public ObservableCollection<Task> Tasks { get; private set; }
 
         public string ProjectID { get; set; }
+
         public string UserID { get; set; }
 
         private DateTime dateTime;

@@ -36,48 +36,48 @@ namespace Polar.ViewModel
         {
             ProjectListPage = projectListPage;
             User = App.user;
-            DeleteProject = new Command(ExecuteDeleteProject);
-            ReuseProject = new Command(ExecuteReuseProject);
+            DeleteProject = new Command(ExecuteDeleteProjectAsync);
+            ReuseProject = new Command(ExecuteReuseProjectAsync);
         }
 
-        private void ExecuteReuseProject(object obj)
+        private async void ExecuteReuseProjectAsync(object obj)
         {
             if (obj is Project project)
             {
                 project.Reuse();
 
-                SQLService SQL = new SQLService();
-                SQL.UpdateProject(project);
+                //SQLService SQL = new SQLService();
+                await AzureService.UpdateProject(project);
 
                 foreach (var piece in project.Pieces)
                 {
-                    SQL.UpdatePiece(piece);
+                    await AzureService.UpdatePiece(piece);
                     foreach (var task in piece.Tasks)
                     {
-                        SQL.UpdateTask(task);
+                        await AzureService.UpdateTask(task);
                     }
                 }
                 App.Current.MainPage = new NavPage();
             }
         }
 
-        private void ExecuteDeleteProject(object obj)
+        private async void ExecuteDeleteProjectAsync(object obj)
         {
-            SQLService SQL = new SQLService();
+            //SQLService SQL = new SQLService();
             if (obj is Project project)
             {
                 User.DeleteProject(project);
-                SQL.DeleteProject(project);
+                await AzureService.DeleteProject(project);
             } 
             else if (obj is Piece piece)
             {
                 User.GetProjectByPiece(piece).DeletePiece(piece);
-                SQL.DeletePiece(piece);
+                await AzureService.DeletePiece(piece);
             }
             else if (obj is Task task)
             {
                 User.GetPieceByTask(task).DeleteTask(task);
-                SQL.DeleteTask(task);
+                await AzureService.DeleteTask(task);
             }
 
 

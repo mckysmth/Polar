@@ -61,11 +61,11 @@ namespace Polar.ViewModel
             await App.Current.MainPage.Navigation.PushAsync(new SignUpPage());
         }
 
-        public void LogIn()
+        public async void LogIn()
         {
-            SQLService SQL = new SQLService();
+            //SQLService SQL = new SQLService();
 
-            User userDB = SQL.GetUserByEmail(User);
+            User userDB = await AzureService.GetUserByEmail(User);
 
             if (userDB != null)
             {

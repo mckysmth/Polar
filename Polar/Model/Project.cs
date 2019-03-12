@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using SQLite;
+using Newtonsoft.Json;
 
 namespace Polar.Model
 {
@@ -14,6 +15,7 @@ namespace Polar.Model
         public string Id { get; set; }
 
         [Ignore]
+        [JsonIgnore]
         public ObservableCollection<Piece> Pieces { get; set; }
 
         private string projectName;

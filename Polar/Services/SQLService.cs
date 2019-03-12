@@ -79,12 +79,14 @@ namespace Polar.Services
                     {
                         returnUser.AddProject(project);
                     }
+
+                    foreach (var eventPc in GetAllEventPiecesByUser(returnUser))
+                    {
+                        returnUser.EventPieces.Add(eventPc);
+                    }
                 }
 
-                foreach (var eventPc in GetAllEventPiecesByUser(returnUser))
-                {
-                    returnUser.EventPieces.Add(eventPc);
-                }
+               
 
                 return returnUser;
             }
