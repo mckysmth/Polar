@@ -35,8 +35,8 @@ namespace Polar.Model
             }
         }
 
-        private bool isRepeating;
-        public bool IsRepeating
+        private int isRepeating;
+        public int IsRepeating
         {
             get { return isRepeating; }
             set
@@ -96,7 +96,7 @@ namespace Polar.Model
             IsComplete = false;
         }
 
-        public Piece(string userID, DateTime dateTime, bool isRepeating) 
+        public Piece(string userID, DateTime dateTime, int isRepeating) 
         {
             Id = Guid.NewGuid().ToString();
             UserID = userID;
@@ -144,6 +144,59 @@ namespace Polar.Model
             Tasks.Remove(task);
         }
 
+        public void AddRepeatTime(bool canAdd)
+        {
+            DateTime startDate = DateTime;
 
+            Repeater repeaterCode = (Repeater)IsRepeating;
+
+            bool isResedule = false;
+            string repeaterString = Enum.Format(typeof(Repeater), repeaterCode, "f");
+
+            if (repeaterCode == Repeater.Monthly)
+            {
+                if (canAdd)
+                {
+                    DateTime = DateTime.AddMonths(1);
+                }
+                else
+                {
+                    DateTime = DateTime.AddMonths(-1);
+                }
+                isResedule = true;
+            }
+            else if (repeaterCode == Repeater.Weekly)
+            {
+                if (canAdd)
+                {
+                    DateTime = DateTime.AddDays(7);
+                }
+                else
+                {
+                    DateTime = DateTime.AddDays(-7);
+                }
+                isResedule = true;
+            }
+
+
+            while (!isResedule && repeaterCode != Repeater.None)
+            {
+                if (repeaterString.Contains(Enum.Format(typeof(DayOfWeek), startDate.DayOfWeek, "f")) && !startDate.Equals(DateTime))
+                {
+                    DateTime = startDate;
+                    isResedule = true;
+                }
+                else if (canAdd)
+                {
+                    startDate = startDate.AddDays(1);
+                }
+                else
+                {
+                    startDate = startDate.AddDays(-1);
+
+                }
+
+            }
+        }
     }
 }

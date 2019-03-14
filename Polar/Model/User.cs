@@ -147,7 +147,7 @@ namespace Polar.Model
 
             foreach (var pc in EventPieces)
             {
-                if (pc.DateTime.DayOfYear == DateTime.Now.DayOfYear && !pc.IsComplete)
+                if (pc.DateTime.DayOfYear == DateTime.Now.DayOfYear)
                 {
                     pieceList.Add(pc);
                 }
@@ -187,13 +187,13 @@ namespace Polar.Model
                 {
                     piece.IsComplete = true;
 
-                    if (piece.IsRepeating)
+                    if (piece.UserID != null)
                     {
-                        piece.DateTime = piece.DateTime.AddMonths(1);
+                        piece.AddRepeatTime(true);
                     }
                     else if (piece.ProjectID != null)
                     {
-                        CheckFinishProjectsByPieceAsync(piece);
+                        await CheckFinishProjectsByPieceAsync(piece);
                     }
                     await AzureService.UpdatePiece(piece);
 
@@ -207,13 +207,14 @@ namespace Polar.Model
                 {
                     piece.IsComplete = false;
 
-                    if (piece.IsRepeating)
+                    if (piece.UserID != null)
                     {
-                        piece.DateTime = piece.DateTime.AddMonths(-1);
+                        piece.AddRepeatTime(false);
                     }
-                    else
+                    else if(piece.ProjectID != null)
                     {
-                        CheckFinishProjectsByPieceAsync(piece);
+                        await CheckFinishProjectsByPieceAsync(piece);
+
                     }
                     await AzureService.UpdatePiece(piece);
                 }

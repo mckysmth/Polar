@@ -44,13 +44,21 @@ namespace Polar.Services
 
         private static async System.Threading.Tasks.Task<List<Piece>> GetAllEventPiecesByUser(User returnUser)
         {
-            List<Piece> pieces = await App.MobileService.GetTable<Piece>().Where(p => p.UserID == returnUser.Id).ToListAsync();
+            List<Piece> pieces = await App.MobileService.GetTable<Piece>().Where(p => p.UserID == returnUser.Id && p.DateTime >= DateTime.Now.Date).ToListAsync();
 
             foreach (var piece in pieces)
             {
                 foreach (var task in await GetTaskListByPieceID(piece))
                 {
                     piece.AddTask(task);
+                    if (piece.IsComplete)
+                    {
+                        piece.IsComplete = false;
+
+                        await App.MobileService.GetTable<Piece>().UpdateAsync(piece);
+                    }
+
+
                 }
             }
 
@@ -60,6 +68,17 @@ namespace Polar.Services
         private static async System.Threading.Tasks.Task<List<Task>> GetTaskListByPieceID(Piece piece)
         {
             List<Task> tasks = await App.MobileService.GetTable<Task>().Where(t => t.PieceId == piece.Id).ToListAsync();
+            foreach (var task in tasks)
+            {
+                if (piece.UserID != null && task.IsComplete)
+                {
+
+                    task.IsComplete = false;
+
+                    await App.MobileService.GetTable<Task>().UpdateAsync(task);
+                }
+            }
+
             return tasks;
         }
 

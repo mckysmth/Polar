@@ -9,10 +9,16 @@
         
         <TimePicker x:Name="Timepicker"/>
         
-        <StackLayout>
-            <Label Text="Does Repeat"/>
-            <Switch x:Name="IsReoccuring"/>
-        </StackLayout>
+        <Button Text="Sunday" BindingContext="1" Clicked="Handle_Clicked_1"/>
+        <Button Text="Monday" BindingContext="2" Clicked="Handle_Clicked_1"/>
+        <Button Text="Tuesday" BindingContext="4" Clicked="Handle_Clicked_1"/>
+        <Button Text="Wednesday" BindingContext="8" Clicked="Handle_Clicked_1"/>
+        <Button Text="Thursday" BindingContext="16" Clicked="Handle_Clicked_1"/>
+        <Button Text="Friday" BindingContext="32" Clicked="Handle_Clicked_1"/>
+        <Button Text="Saturday" BindingContext="64" Clicked="Handle_Clicked_1"/>
+        <Button Text="Monthly" BindingContext="128" Clicked="Handle_Clicked_1"/>
+        <Button Text="Weekly" BindingContext="129" Clicked="Handle_Clicked_1"/>
+        
         
         <Button Text="Done" Clicked="Handle_Clicked"/>
         

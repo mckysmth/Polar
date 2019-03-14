@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Polar.Model;
 using Polar.Services;
@@ -40,7 +39,6 @@ namespace Polar.ViewModel
             Backlog = User.GetBackLog();
             TodaysList = User.GetToaysList();
             NavigateToNewProjectPage = new Command(() => ExecuteNavigateToNewProjectPageCommand());
-
         }
 
         public void UpdateBackLog()
