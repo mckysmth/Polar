@@ -23,6 +23,9 @@
                     <local:MasterPageItem Title="Events" 
                                           TargetType="{x:Type local:EventListLage}" />
                     
+                    <local:MasterPageItem Title="Friends" 
+                                          TargetType="{x:Type local:FriendsPage}" />
+                    
                 </x:Array>
             </ListView.ItemsSource>
             

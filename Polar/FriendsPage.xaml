@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Polar.FriendsPage">
+    
+    
+    <StackLayout>
+        
+        <Entry x:Name="AddFriend" Placeholder="Enter Friends Email"/>
+        <Button Text="Add Friend" Clicked="Handle_Clicked"/>
+    </StackLayout>
+    
+    <ListView x:Name="friendList">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout>
+                        <Label Text="{Binding FirstName}"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding LastName}"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        
+    </ListView>
+</ContentPage>

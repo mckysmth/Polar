@@ -108,5 +108,12 @@ namespace Polar
                 Navigation.PushAsync(new NewTaskPage(piece));
             }
         }
+
+
+        void Handle_Clicked_1(object sender, System.EventArgs e)
+        {
+            Project project = (Project)((MenuItem)sender).CommandParameter;
+            Navigation.PushAsync(new FriendsPage(project));
+        }
     }
 }

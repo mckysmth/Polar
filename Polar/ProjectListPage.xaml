@@ -29,6 +29,10 @@
                         <MenuItem Text="Reuse"
                                   Command="{Binding Path=BindingContext.ReuseProject, Source={x:Reference YourView}}"
                                   CommandParameter="{Binding .}"/>
+<!--                        Command="{Binding Path=BindingContext.ShareProject, Source={x:Reference YourView}}"-->
+                        <MenuItem Text="Share"
+                                  Clicked="Handle_Clicked_1"
+                                  CommandParameter="{Binding .}"/>
                     </ViewCell.ContextActions>
                     
                 </ViewCell>

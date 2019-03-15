@@ -8,11 +8,74 @@ namespace Polar.Services
 {
     public static class AzureService
     {
+
         public static async System.Threading.Tasks.Task InsertNewUser(User user)
         {
             App.user = user;
             await App.MobileService.GetTable<User>().InsertAsync(user);
 
+        }
+
+        public static async System.Threading.Tasks.Task<ObservableCollection<User>> GetFriendsList(User user)
+        {
+            List<UserUser> userFriends = await App.MobileService.GetTable<UserUser>().Where(u => u.UserId == user.Id || u.UserFriendId == user.Id).ToListAsync();
+            ObservableCollection<User> users = new ObservableCollection<User>();
+            foreach (var item in userFriends)
+            {
+                User friend;
+                if (item.UserId == user.Id)
+                {
+                    friend = (await App.MobileService.GetTable<User>().Where(u => u.Id == item.UserFriendId).ToListAsync()).FirstOrDefault();
+                }
+                else
+                {
+                    friend = (await App.MobileService.GetTable<User>().Where(u => u.Id == item.UserId).ToListAsync()).FirstOrDefault();
+                }
+
+                if (friend != null)
+                {
+                    users.Add(friend);
+                }
+            }
+            return users;
+        }
+
+        public static async System.Threading.Tasks.Task ShareNewProject(User user, Project project)
+        {
+            UserProject userProject = new UserProject
+            {
+                ProjectId = project.Id,
+                UserId = user.Id
+            };
+            await App.MobileService.GetTable<UserProject>().InsertAsync(userProject);
+        }
+
+        public static async System.Threading.Tasks.Task<bool> SendFriendRequest(string text)
+        {
+            User user = new User
+            {
+                Email = text
+            };
+
+            user = await GetUserByEmail(user);
+
+            if (user != null)
+            {
+                UserUser userUser = new UserUser
+                {
+                    UserId = App.user.Id,
+                    UserFriendId = user.Id
+                };
+
+                await App.MobileService.GetTable<UserUser>().InsertAsync(userUser);
+
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static async System.Threading.Tasks.Task<User> GetUserByEmail(User user)
