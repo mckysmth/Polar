@@ -3,22 +3,41 @@
     
     
     <StackLayout x:Name="MainLayout">
-        <Entry x:Name="EventName" Placeholder="Event Title"/>
+        <Entry x:Name="EventName" Placeholder="Event Title"
+               IsInNativeLayout="true"/>
         
-        <DatePicker x:Name="Datepicker"/>
+        <DatePicker x:Name="Datepicker"
+                    IsInNativeLayout="true"/>
         
-        <TimePicker x:Name="Timepicker"/>
-        
-        <Button Text="Sunday" BindingContext="1" Clicked="Handle_Clicked_1"/>
-        <Button Text="Monday" BindingContext="2" Clicked="Handle_Clicked_1"/>
-        <Button Text="Tuesday" BindingContext="4" Clicked="Handle_Clicked_1"/>
-        <Button Text="Wednesday" BindingContext="8" Clicked="Handle_Clicked_1"/>
-        <Button Text="Thursday" BindingContext="16" Clicked="Handle_Clicked_1"/>
-        <Button Text="Friday" BindingContext="32" Clicked="Handle_Clicked_1"/>
-        <Button Text="Saturday" BindingContext="64" Clicked="Handle_Clicked_1"/>
-        <Button Text="Monthly" BindingContext="128" Clicked="Handle_Clicked_1"/>
-        <Button Text="Weekly" BindingContext="129" Clicked="Handle_Clicked_1"/>
-        
+        <TimePicker x:Name="Timepicker"
+                    IsInNativeLayout="true"/>
+
+        <Picker x:Name="picker"
+                Title="None"
+                SelectedIndexChanged="Handle_SelectedIndexChanged"
+                IsInNativeLayout="true">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>None</x:String>
+                        <x:String>Daily</x:String>
+                        <x:String>Weekly</x:String>
+                        <x:String>Monthly</x:String>
+                        <x:String>Custom</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+        </Picker>
+        <StackLayout x:Name="CustomSelection"
+                     IsVisible="false">
+            <Button Text="Sunday" BindingContext="1" Clicked="Handle_Clicked_1"/>
+            <Button Text="Monday" BindingContext="2" Clicked="Handle_Clicked_1"/>
+            <Button Text="Tuesday" BindingContext="4" Clicked="Handle_Clicked_1"/>
+            <Button Text="Wednesday" BindingContext="8" Clicked="Handle_Clicked_1"/>
+            <Button Text="Thursday" BindingContext="16" Clicked="Handle_Clicked_1"/>
+            <Button Text="Friday" BindingContext="32" Clicked="Handle_Clicked_1"/>
+            <Button Text="Saturday" BindingContext="64" Clicked="Handle_Clicked_1"/>
+            <!--<Button Text="Monthly" BindingContext="128" Clicked="Handle_Clicked_1"/>
+            <Button Text="Weekly" BindingContext="129" Clicked="Handle_Clicked_1"/>-->
+        </StackLayout>
         
         <Button Text="Done" Clicked="Handle_Clicked"/>
         

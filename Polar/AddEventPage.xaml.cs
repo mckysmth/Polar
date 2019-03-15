@@ -15,6 +15,7 @@ namespace Polar
         {
             InitializeComponent();
             User = App.user;
+
         }
 
         async void Handle_Clicked(object sender, System.EventArgs e)
@@ -40,6 +41,32 @@ namespace Polar
 
         }
 
+        void Handle_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            string selectedItem = (String)((Picker)sender).SelectedItem;
+            switch (selectedItem)
+            {
+                case "Daily":
+                    repeater = (byte)Repeater.Everyday;
+                    CustomSelection.IsVisible = false;
+                    break;
+                case "Weekly":
+                    CustomSelection.IsVisible = false;
+                    repeater = (byte)Repeater.Weekly;
+                    break;
+                case "Monthly":
+                    CustomSelection.IsVisible = false;
+                    repeater = (byte)Repeater.Saturday;
+                    break;
+                case "Custom":
+                    CustomSelection.IsVisible = true;
+                    repeater = 0;
+                    break;
+                default:
+                    CustomSelection.IsVisible = false;
+                    break;
+            }
+        }
 
         void Handle_Clicked_1(object sender, System.EventArgs e)
         {
@@ -69,12 +96,6 @@ namespace Polar
                 case Repeater.Saturday:
                     SetDayCode(value, 6, btn);
                     break;
-                case Repeater.Monthly:
-                    SetDayCode(value, 6, btn);
-                    break;
-                case Repeater.Weekly:
-                    SetDayCode(value, 6, btn);
-                    break;
             }
 
         }
@@ -85,13 +106,13 @@ namespace Polar
             {
                 repeater += (int)value;
                 dayChecker[dayCheckerIndexer] = true;
-                button.BackgroundColor = Color.LightGray;
+                button.BackgroundColor = (Color)App.Current.Resources["DarkOrange"];
             }
             else
             {
                 repeater -= (int)value;
                 dayChecker[dayCheckerIndexer] = false;
-                button.BackgroundColor = Color.Orange;
+                button.BackgroundColor = (Color)App.Current.Resources["Orange"];
 
             }
         }

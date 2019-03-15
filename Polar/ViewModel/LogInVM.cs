@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json.Linq;
 using Polar.Model;
 using Polar.Services;
 using Polar.ViewModel.Commands;
@@ -72,6 +73,7 @@ namespace Polar.ViewModel
                 if (userDB.Password == User.Password)
                 {
                     App.user = userDB;
+
                     App.Current.MainPage = new NavPage();
                 }
                 else

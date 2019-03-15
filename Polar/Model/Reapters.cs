@@ -13,6 +13,7 @@ namespace Polar.Model
         Friday = 0b0010_0000,    // 32
         Saturday = 0b0100_0000,  // 64
         Monthly = 0b1000_0000,   // 128
-        Weekly = 0b1000_0001     // 129
+        Weekly = 0b1000_0001,    // 129
+        Everyday = Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday
     }
 }
